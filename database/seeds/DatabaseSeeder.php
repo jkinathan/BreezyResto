@@ -11,6 +11,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+/*
         $this->call(UsersTableSeeder::class);
         $this->call(CustomFieldsTableSeeder::class);
         $this->call(CustomFieldValuesTableSeeder::class);
@@ -48,6 +49,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RoleHasPermissionsTableSeeder::class);
 
         $this->call(MediaTableSeeder::class);
-        $this->call(UploadsTableSeeder::class);
+        $this->call(UploadsTableSeeder::class);*/
     }
 }
