@@ -47,7 +47,7 @@ class UserAPIController extends Controller
         }
 
         return $this->sendResponse([
-            'error' => 'Unauthenticated user',
+            'error' => 'You are Unauthenticated user',
             'code' => 401,
         ], 'User not logged');
 
