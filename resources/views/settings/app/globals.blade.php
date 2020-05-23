@@ -20,6 +20,20 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="{!! url()->current() !!}"><i class="fa fa-cog mr-2"></i>{{trans('lang.app_setting_'.$tab)}}</a>
                 </li>
+                @if(!env('APP_DEMO',false))
+                    <div class="ml-auto d-inline-flex">
+                        <li class="nav-item">
+                            <a class="nav-link pt-1" href="{{url('settings/clear-cache')}}"><i class="fa fa-trash-o"></i> {{trans('lang.app_setting_clear_cache')}}
+                            </a>
+                        </li>
+                        @if($containsUpdate)
+                            <li class="nav-item">
+                                <a class="nav-link pt-1" href="{{url('update/'.config('installer.currentVersion','v100'))}}"><i class="fa fa-refresh"></i> {{trans('lang.app_setting_check_for')}}
+                                </a>
+                            </li>
+                        @endif
+                    </div>
+                @endif
             </ul>
         </div>
         <div class="card-body">
@@ -122,29 +136,7 @@
                             <div class="form-text text-muted">{{ trans("lang.app_setting_logo_bg_color_help") }}</div>
                         </div>
                     </div>
-                    
-                    <!-- fixed_header Field -->
-                    <div class="form-group row ">
-                        {!! Form::label('fixed_header', trans("lang.app_setting_fixed_header"),['class' => 'col-4 control-label text-right']) !!}
-                        <div class="checkbox icheck">
-                            <label class="w-100 ml-2 form-check-inline">
-                                {!! Form::hidden('fixed_header', null) !!}
-                                {!! Form::checkbox('fixed_header', 'fixed-top', setting('fixed_header')) !!} <span class="ml-2">{!! trans("lang.app_setting_fixed_header_help") !!}</span>
-                            </label>
-                        </div>
-                    </div>
 
-                    <!-- fixed_footer Field -->
-                    <div class="form-group row ">
-                        {!! Form::label('fixed_footer', trans("lang.app_setting_fixed_footer"),['class' => 'col-4 control-label text-right']) !!}
-                        <div class="checkbox icheck">
-                            <label class="w-100 ml-2 form-check-inline">
-                                {!! Form::hidden('fixed_footer', null) !!}
-                                {!! Form::checkbox('fixed_footer', 'fixed-bottom', setting('fixed_footer')) !!} <span class="ml-2">{!! trans("lang.app_setting_fixed_footer_help") !!}</span>
-                            </label>
-                        </div>
-                    </div>
-                    
                     <!-- custom_field_models Field -->
                     <div class="form-group row ">
                         {!! Form::label('custom_field_models[]', trans("lang.app_setting_custom_field_models"),['class' => 'col-4 control-label text-right']) !!}
@@ -226,8 +218,28 @@
                     </script>
                     @endprepend
 
+                <!-- fixed_header Field -->
+                    <div class="form-group row ">
+                        {!! Form::label('fixed_header', trans("lang.app_setting_fixed_header"),['class' => 'col-4 control-label text-right']) !!}
+                        <div class="checkbox icheck">
+                            <label class="w-100 ml-2 form-check-inline">
+                                {!! Form::hidden('fixed_header', null) !!}
+                                {!! Form::checkbox('fixed_header', 'fixed-top', setting('fixed_header')) !!}
+                                <span class="ml-2">{!! trans("lang.app_setting_fixed_header_help") !!}</span> </label>
+                        </div>
+                    </div>
 
-                    
+                    <!-- fixed_footer Field -->
+                    <div class="form-group row ">
+                        {!! Form::label('fixed_footer', trans("lang.app_setting_fixed_footer"),['class' => 'col-4 control-label text-right']) !!}
+                        <div class="checkbox icheck">
+                            <label class="w-100 ml-2 form-check-inline">
+                                {!! Form::hidden('fixed_footer', null) !!}
+                                {!! Form::checkbox('fixed_footer', 'fixed-bottom', setting('fixed_footer')) !!}
+                                <span class="ml-2">{!! trans("lang.app_setting_fixed_footer_help") !!}</span> </label>
+                        </div>
+                    </div>
+
 
                 </div>
                 <!-- Submit Field -->

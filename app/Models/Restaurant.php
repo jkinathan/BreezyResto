@@ -18,6 +18,7 @@ use Spatie\MediaLibrary\Models\Media;
  * @property \Illuminate\Database\Eloquent\Collection Gallery
  * @property \Illuminate\Database\Eloquent\Collection RestaurantsReview
  * @property \Illuminate\Database\Eloquent\Collection User
+ * @property \Illuminate\Database\Eloquent\Collection[] Restaurant
  * @property string name
  * @property string description
  * @property string address
@@ -25,6 +26,8 @@ use Spatie\MediaLibrary\Models\Media;
  * @property string longitude
  * @property string phone
  * @property string mobile
+ * @property double admin_commission
+ * @property double delivery_fee
  * @property string information
  */
 class Restaurant extends Model implements HasMedia
@@ -45,6 +48,8 @@ class Restaurant extends Model implements HasMedia
         'longitude',
         'phone',
         'mobile',
+        'admin_commission',
+        'delivery_fee',
         'information'
     ];
 
@@ -62,17 +67,37 @@ class Restaurant extends Model implements HasMedia
         'longitude' => 'string',
         'phone' => 'string',
         'mobile' => 'string',
+        'admin_commission' =>'double',
+        'delivery_fee'=>'double',
         'information' => 'string'
     ];
 
     /**
-     * Validation rules
+     * Validation $adminRules
      *
      * @var array
      */
-    public static $rules = [
+    public static $adminRules = [
         'name' => 'required',
-        'description' => 'required'
+        'description' => 'required',
+        'image' => 'required',
+        'address' => 'required',
+        'latitude' => 'required',
+        'longitude' => 'required',
+        'admin_commission' => 'required',
+    ];
+
+    /**
+     * Validation $managerRules
+     *
+     * @var array
+     */
+    public static $managerRules = [
+        'name' => 'required',
+        'description' => 'required',
+        'address' => 'required',
+        'latitude' => 'required',
+        'longitude' => 'required',
     ];
 
     /**
@@ -187,6 +212,14 @@ class Restaurant extends Model implements HasMedia
     public function users()
     {
         return $this->belongsToMany(\App\Models\User::class, 'user_restaurants');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function drivers()
+    {
+        return $this->belongsToMany(\App\Models\User::class, 'driver_restaurants');
     }
 
     

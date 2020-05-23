@@ -13,17 +13,15 @@ use InfyOm\Generator\Common\BaseRepository;
  * @method Notification findWithoutFail($id, $columns = ['*'])
  * @method Notification find($id, $columns = ['*'])
  * @method Notification first($columns = ['*'])
-*/
+ */
 class NotificationRepository extends BaseRepository
 {
     /**
      * @var array
      */
     protected $fieldSearchable = [
-        'title',
-        'notification_type_id',
-        'user_id',
-        'read'
+        'type',
+        'read_at'
     ];
 
     /**

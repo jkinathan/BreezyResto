@@ -19,12 +19,12 @@
                         </a>
                     </li>
                 @endforeach
-                <div class="ml-auto d-inline-flex">
-                    <li class="nav-item">
-                        <a class="nav-link pt-1" href="{{url('settings/sync-translation')}}"><i class="fa fa-refresh"></i> {{trans('lang.sync_translation')}}
-                        </a>
-                    </li>
-                </div>
+{{--                <div class="ml-auto d-inline-flex">--}}
+{{--                    <li class="nav-item">--}}
+{{--                        <a class="nav-link pt-1" href="{{url('settings/sync-translation')}}"><i class="fa fa-refresh"></i> {{trans('lang.sync_translation')}}--}}
+{{--                        </a>--}}
+{{--                    </li>--}}
+{{--                </div>--}}
             </ul>
         </div>
         <div class="card-body">

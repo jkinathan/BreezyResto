@@ -19,15 +19,15 @@ use Spatie\Permission\Traits\HasRoles;
  * @property string email
  * @property string password
  * @property string api_token
- * @property integer role_id
+ * @property string device_token
  */
 class User extends Authenticatable implements HasMedia
 {
+    use Notifiable;
     use Billable;
     use HasMediaTrait {
         getFirstMediaUrl as protected getFirstMediaUrlTrait;
     }
-    use Notifiable;
     use HasRoles;
 
     public $table = 'users';
@@ -69,7 +69,6 @@ class User extends Authenticatable implements HasMedia
         'name' => 'required|string|max:255',
         'email' => 'required|string|email|max:255|unique:users',
         // 'password' => 'required',
-        // 'role_id' => 'required|exists:roles,id'
     ];
 
     /**
@@ -90,6 +89,16 @@ class User extends Authenticatable implements HasMedia
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Specifies the user's FCM token
+     *
+     * @return string
+     */
+    public function routeNotificationForFcm($notification)
+    {
+        return $this->device_token;
+    }
 
     /**
      * @param Media|null $media
@@ -151,5 +160,13 @@ class User extends Authenticatable implements HasMedia
     public function getHasMediaAttribute()
     {
         return $this->hasMedia('avatar') ? true : false;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     **/
+    public function restaurants()
+    {
+        return $this->belongsToMany(\App\Models\Restaurant::class, 'user_restaurants');
     }
 }

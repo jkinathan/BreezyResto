@@ -24,8 +24,8 @@ class RestaurantReviewsTableSeeder extends Seeder
                 'rate' => 2,
                 'user_id' => 18,
                 'restaurant_id' => 2,
-                'created_at' => '2019-08-30 10:56:09',
-                'updated_at' => '2019-10-16 18:43:48',
+                'created_at' => '2019-08-30 11:56:09',
+                'updated_at' => '2019-10-16 19:43:48',
             ),
             1 => 
             array (
@@ -34,8 +34,8 @@ class RestaurantReviewsTableSeeder extends Seeder
                 'rate' => 5,
                 'user_id' => 1,
                 'restaurant_id' => 1,
-                'created_at' => '2019-08-30 10:56:52',
-                'updated_at' => '2019-08-30 10:56:52',
+                'created_at' => '2019-08-30 11:56:52',
+                'updated_at' => '2019-08-30 11:56:52',
             ),
             2 => 
             array (
@@ -44,8 +44,8 @@ class RestaurantReviewsTableSeeder extends Seeder
                 'rate' => 3,
                 'user_id' => 18,
                 'restaurant_id' => 2,
-                'created_at' => '2019-08-31 21:53:52',
-                'updated_at' => '2019-10-16 18:44:39',
+                'created_at' => '2019-08-31 22:53:52',
+                'updated_at' => '2019-10-16 19:44:39',
             ),
             3 => 
             array (
@@ -54,8 +54,8 @@ class RestaurantReviewsTableSeeder extends Seeder
                 'rate' => 4,
                 'user_id' => 19,
                 'restaurant_id' => 3,
-                'created_at' => '2019-10-16 18:44:15',
-                'updated_at' => '2019-10-16 18:44:15',
+                'created_at' => '2019-10-16 19:44:15',
+                'updated_at' => '2019-10-16 19:44:15',
             ),
             4 => 
             array (
@@ -64,8 +64,8 @@ class RestaurantReviewsTableSeeder extends Seeder
                 'rate' => 2,
                 'user_id' => 20,
                 'restaurant_id' => 4,
-                'created_at' => '2019-10-16 18:45:54',
-                'updated_at' => '2019-10-16 18:45:54',
+                'created_at' => '2019-10-16 19:45:54',
+                'updated_at' => '2019-10-16 19:45:54',
             ),
         ));
         

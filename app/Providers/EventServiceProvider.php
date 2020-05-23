@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Event;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -13,9 +12,17 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\Event' => [
-            'App\Listeners\EventListener',
+        'App\Events\RestaurantChangedEvent' => [
+            'App\Listeners\UpdateRestaurantEarningTableListener',
         ],
+        'App\Events\UserRoleChangedEvent' => [
+            'App\Listeners\UpdateUserDriverTableListener',
+        ],
+        'App\Events\OrderChangedEvent' => [
+            'App\Listeners\UpdateOrderEarningTable',
+            'App\Listeners\UpdateOrderDriverTable'
+        ],
+
     ];
 
     /**

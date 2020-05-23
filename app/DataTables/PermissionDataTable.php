@@ -74,16 +74,19 @@ class PermissionDataTable extends DataTable
             [
                 'data' => 'name',
                 'title' => trans('lang.permission_name'),
+                'searchable' => true
             ],
             [
                 'data' => 'class',
                 'title' => trans('lang.permission_class'),
                 'visible' => false,
                 'className' => "hide",
+                'searchable' => false
             ],
             [
                 'data' => 'guard_name',
-                'title' => trans('lang.permission_guard_name')
+                'title' => trans('lang.permission_guard_name'),
+                'searchable' => false,
             ]
         ];
 

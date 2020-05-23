@@ -16,12 +16,7 @@ class CartExtrasTableSeeder extends Seeder
 
         \DB::table('cart_extras')->delete();
         
-        \DB::table('cart_extras')->insert(array (
-            0 => 
-            array (
-                'extra_id' => 4,
-                'cart_id' => 11,
-            ),
-        ));
+        
+        
     }
 }

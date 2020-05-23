@@ -35,15 +35,41 @@ return [
             'model' => 'OrderStatus',
             'fieldsFile' => 'schema/order_statuses.json',
             'api' => true,
-        ],*/
+        ],
         [
             'model' => 'Currency',
             'fieldsFile' => 'schema/currencies.json',
             'api' => true,
-        ],/*
+        ],
+         [
+            'model' => 'DeliveryAddress',
+            'fieldsFile' => 'schema/delivery_addresses.json',
+            'api' => true,
+        ],
 
         // Child Tables
-
+*/
+        [
+            'model' => 'Driver',
+            'fieldsFile' => 'schema/drivers.json',
+            'api' => true,
+        ],
+        [
+            'model' => 'Earning',
+            'fieldsFile' => 'schema/earnings.json',
+            'api' => true,
+        ],
+        [
+            'model' => 'DriversPayout',
+            'fieldsFile' => 'schema/drivers_payouts.json',
+            'api' => true,
+        ],
+        [
+            'model' => 'RestaurantsPayout',
+            'fieldsFile' => 'schema/restaurants_payouts.json',
+            'api' => true,
+        ],
+        /*
         [
             'model' => 'Food',
             'fieldsFile' => 'schema/foods.json',
@@ -132,6 +158,13 @@ return [
             'fieldsFile' => 'schema/user_restaurants.json',
             'skip' => true,
         ],
+
+         [
+            'model' => 'DriverRestaurant',
+            'fieldsFile' => 'schema/driver_restaurants.json',
+            'skip' => true,
+        ],
+
         [
             'model' => 'FoodOrderExtra',
             'fieldsFile' => 'schema/food_order_extras.json',

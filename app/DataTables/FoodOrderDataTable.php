@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\FoodOrder;
 use App\Models\CustomField;
-use Yajra\DataTables\Services\DataTable;
-use Yajra\DataTables\EloquentDataTable;
+use App\Models\FoodOrder;
 use Barryvdh\DomPDF\Facade as PDF;
+use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Services\DataTable;
 
 class FoodOrderDataTable extends DataTable
 {
@@ -15,6 +15,7 @@ class FoodOrderDataTable extends DataTable
      * @var array
      */
     public static $customFields = [];
+    public $id = 0;
 
     /**
      * Build DataTable class.
@@ -31,13 +32,13 @@ class FoodOrderDataTable extends DataTable
                 return getDateColumn($food_order, 'updated_at');
             })
             ->editColumn('extras', function ($foodOrder) {
-                return getLinksColumn($foodOrder->extras, 'extras', 'id', 'name');
+                return getLinksColumnByRouteName($foodOrder->extras, 'extras.edit', 'id', 'name');
             })
             ->editColumn('price', function ($foodOrder) {
                 return getPriceColumn($foodOrder);
             })
-            ->addColumn('action', 'food_orders.datatables_actions')
-            ->rawColumns(array_merge($columns, ['action']));
+//            ->addColumn('action', 'food_orders.datatables_actions')
+            ->rawColumns(array_merge($columns));
 
         return $dataTable;
     }
@@ -50,15 +51,10 @@ class FoodOrderDataTable extends DataTable
      */
     public function query(FoodOrder $model)
     {
-        if (auth()->user()->hasRole('admin')) {
-            return $model->newQuery()->with("food")->with("order")->with("order.user")->with("order.orderStatus")->select('food_orders.*')->orderBy('food_orders.id','desc');
-        } else {
-            return $model->newQuery()->with("food")->with("order")->with("order.user")->with("order.orderStatus")
-                ->join("foods","foods.id","=","food_orders.food_id")
-                ->join("user_restaurants", "user_restaurants.restaurant_id", "=", "foods.restaurant_id")
-                ->where('user_restaurants.user_id', auth()->id())
-                ->select('food_orders.*')->orderBy('food_orders.id','desc');
-        }
+        return $model->newQuery()->with("food")
+            ->where('food_orders.order_id', $this->id)
+            ->select('food_orders.*')->orderBy('food_orders.id', 'desc');
+
     }
 
     /**
@@ -71,9 +67,9 @@ class FoodOrderDataTable extends DataTable
         return $this->builder()
             ->columns($this->getColumns())
             ->minifiedAjax()
-            ->addAction(['width' => '80px', 'printable' => false, 'responsivePriority' => '100'])
             ->parameters(array_merge(
                 config('datatables-buttons.parameters'), [
+                    'dom' => 'rt',
                     'language' => json_decode(
                         file_get_contents(base_path('resources/lang/' . app()->getLocale() . '/datatable.json')
                         ), true)
@@ -92,37 +88,27 @@ class FoodOrderDataTable extends DataTable
             [
                 'data' => 'food.name',
                 'title' => trans('lang.food_order_food_id'),
+                'orderable' => false,
+                'searchable' => false,
 
             ],
             [
                 'data' => 'extras',
                 'title' => trans('lang.food_order_extras'),
                 'searchable' => false,
+                'orderable' => false,
             ],
             [
                 'data' => 'price',
                 'title' => trans('lang.food_order_price'),
+                'orderable' => false,
 
             ],
             [
                 'data' => 'quantity',
                 'title' => trans('lang.food_order_quantity'),
+                'orderable' => false,
 
-            ],
-            [
-                'data' => 'order.user.name',
-                'title' => trans('lang.user_name'),
-
-            ],
-            [
-                'data' => 'order.order_status.status',
-                'title' => trans('lang.order_order_status_id'),
-
-            ],
-            [
-                'data' => 'updated_at',
-                'title' => trans('lang.food_order_updated_at'),
-                'searchable' => false,
             ]
         ];
 

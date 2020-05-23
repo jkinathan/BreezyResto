@@ -44,7 +44,7 @@
                     </div>
                     <!-- /.col -->
                 </div>
-
+@if(env('APP_DEMO',false))
                 <div class="row mb-2">
                     <div class="col-12 callout callout-success">
                         <h6 class="text-bold">Admin</h6>
@@ -66,7 +66,7 @@
                     </div>
                     <!-- /.col -->
                 </div>
-
+@endif
 
             </form>
 

@@ -31,8 +31,6 @@ class Permissions
     public function handle($request, Closure $next)
     {
         $permission = $request->route()->getName();
-        Log::debug($request->route()->getName());
-        Log::info($this->match($request->route()) ? 'true':'false');
         if ($this->match($request->route()) && auth()->user()->canNot($permission)) {
             throw new UnauthorizedException(403, trans('error.permission') . ' <b>' . $permission . '</b>');
         }

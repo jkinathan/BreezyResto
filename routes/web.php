@@ -17,6 +17,7 @@ Route::get('payments/paypal', 'PayPalController@index')->name('paypal.index');
 Route::get('payments/paypal/express-checkout-success', 'PayPalController@getExpressCheckoutSuccess');
 Route::get('payments/paypal/express-checkout', 'PayPalController@getExpressCheckout')->name('paypal.express-checkout');
 
+Route::get('firebase/sw-js','AppSettingController@initFirebase');
 
 Route::get('login/{service}', 'Auth\LoginController@redirectToProvider');
 Route::get('login/{service}/callback', 'Auth\LoginController@handleProviderCallback');
@@ -57,6 +58,8 @@ Route::middleware('auth')->group(function () {
             Route::patch('update', 'AppSettingController@update');
             Route::patch('translate', 'AppSettingController@translate');
             Route::get('sync-translation', 'AppSettingController@syncTranslation');
+            Route::get('clear-cache', 'AppSettingController@clearCache');
+            Route::get('check-update', 'AppSettingController@checkForUpdates');
             // disable special character and number in route params
             Route::get('/{type?}/{tab?}', 'AppSettingController@index')
                 ->where('type', '[A-Za-z]*')->where('tab', '[A-Za-z]*')->name('app-settings');
@@ -64,49 +67,82 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('restaurants/remove-media', 'RestaurantController@removeMedia');
-    Route::resource('restaurants', 'RestaurantController');
+    Route::resource('restaurants', 'RestaurantController')->except([
+        'show'
+    ]);
 
     Route::post('categories/remove-media', 'CategoryController@removeMedia');
-    Route::resource('categories', 'CategoryController');
+    Route::resource('categories', 'CategoryController')->except([
+        'show'
+    ]);
 
-    Route::resource('faqCategories', 'FaqCategoryController');
+    Route::resource('faqCategories', 'FaqCategoryController')->except([
+        'show'
+    ]);
 
-    Route::resource('orderStatuses', 'OrderStatusController');
+    Route::resource('orderStatuses', 'OrderStatusController')->except([
+        'create', 'store', 'destroy'
+    ]);;
 
     Route::post('foods/remove-media', 'FoodController@removeMedia');
-    Route::resource('foods', 'FoodController');
+    Route::resource('foods', 'FoodController')->except([
+        'show'
+    ]);
 
     Route::post('galleries/remove-media', 'GalleryController@removeMedia');
-    Route::resource('galleries', 'GalleryController');
+    Route::resource('galleries', 'GalleryController')->except([
+        'show'
+    ]);
 
-    Route::resource('foodReviews', 'FoodReviewController');
+    Route::resource('foodReviews', 'FoodReviewController')->except([
+        'show'
+    ]);
 
 
-    Route::resource('nutrition', 'NutritionController');
+    Route::resource('nutrition', 'NutritionController')->except([
+        'show'
+    ]);
 
     Route::post('extras/remove-media', 'ExtraController@removeMedia');
     Route::resource('extras', 'ExtraController');
 
-    Route::resource('payments', 'PaymentController');
+    Route::resource('payments', 'PaymentController')->except([
+        'create', 'store','edit', 'destroy'
+    ]);;
 
-    Route::resource('faqs', 'FaqController');
+    Route::resource('faqs', 'FaqController')->except([
+        'show'
+    ]);
+    Route::resource('restaurantReviews', 'RestaurantReviewController')->except([
+        'show'
+    ]);
 
-    Route::resource('restaurantReviews', 'RestaurantReviewController');
-
-    Route::resource('favorites', 'FavoriteController');
+    Route::resource('favorites', 'FavoriteController')->except([
+        'show'
+    ]);
 
     Route::resource('orders', 'OrderController');
 
-    Route::resource('foodOrders', 'FoodOrderController');
+    Route::resource('notifications', 'NotificationController')->except([
+        'create', 'store', 'update','edit',
+    ]);;
 
-    Route::post('notificationTypes/remove-media', 'NotificationTypeController@removeMedia');
-    Route::resource('notificationTypes', 'NotificationTypeController');
+    Route::resource('carts', 'CartController')->except([
+        'show','store','create'
+    ]);
+    Route::resource('currencies', 'CurrencyController')->except([
+        'show'
+    ]);
+    Route::resource('deliveryAddresses', 'DeliveryAddressController')->except([
+        'show'
+    ]);
 
-    Route::resource('notifications', 'NotificationController');
+    Route::resource('drivers', 'DriverController');
 
-    Route::resource('carts', 'CartController');
-    Route::resource('currencies', 'CurrencyController');
+    Route::resource('earnings', 'EarningController');
+
+    Route::resource('driversPayouts', 'DriversPayoutController');
+
+    Route::resource('restaurantsPayouts', 'RestaurantsPayoutController');
+
 });
-
-
-

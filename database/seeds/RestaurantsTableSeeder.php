@@ -28,8 +28,10 @@ class RestaurantsTableSeeder extends Seeder
                 'phone' => '+136 226 5669',
                 'mobile' => '+163 525 9432',
                 'information' => '<p>Monday - Thursday 10:00AM - 11:00PM</p><p>Friday - Sunday 12:00PM - 5:00AM</p>',
-                'created_at' => '2019-08-30 10:51:04',
-                'updated_at' => '2019-10-16 18:35:34',
+                'admin_commission' => 15.0,
+                'delivery_fee' => 7.0,
+                'created_at' => '2019-08-30 11:51:04',
+                'updated_at' => '2020-03-29 17:20:42',
             ),
             1 => 
             array (
@@ -42,8 +44,10 @@ class RestaurantsTableSeeder extends Seeder
                 'phone' => '+136 226 5669',
                 'mobile' => '+163 525 9432',
                 'information' => '<p>Monday - Thursday 10:00AM - 11:00PM</p><p>Friday - Sunday 12:00PM - 5:00AM</p>',
-                'created_at' => '2019-08-30 11:15:09',
-                'updated_at' => '2019-10-18 10:21:45',
+                'admin_commission' => 30.0,
+                'delivery_fee' => 5.0,
+                'created_at' => '2019-08-30 12:15:09',
+                'updated_at' => '2020-03-29 17:36:33',
             ),
             2 => 
             array (
@@ -56,8 +60,10 @@ class RestaurantsTableSeeder extends Seeder
                 'phone' => '+136 226 5669',
                 'mobile' => '+163 525 9432',
                 'information' => '<p>Monday - Thursday 10:00AM - 11:00PM</p><p>Friday - Sunday 12:00PM - 5:00AM<br></p>',
-                'created_at' => '2019-08-30 11:17:02',
-                'updated_at' => '2019-10-18 11:52:38',
+                'admin_commission' => 10.0,
+                'delivery_fee' => 4.0,
+                'created_at' => '2019-08-30 12:17:02',
+                'updated_at' => '2020-03-29 17:36:19',
             ),
             3 => 
             array (
@@ -70,8 +76,10 @@ class RestaurantsTableSeeder extends Seeder
                 'phone' => '+136 226 5669',
                 'mobile' => '+163 525 9432',
                 'information' => '<p>Monday - Thursday 10:00AM - 11:00PM</p><p>Friday - Sunday 12:00PM - 5:00AM</p>',
-                'created_at' => '2019-10-09 15:12:20',
-                'updated_at' => '2019-10-18 10:20:35',
+                'admin_commission' => 25.0,
+                'delivery_fee' => 6.0,
+                'created_at' => '2019-10-09 16:12:20',
+                'updated_at' => '2020-03-29 17:36:09',
             ),
         ));
         

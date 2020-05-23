@@ -1,6 +1,6 @@
 <div class='btn-group btn-group-sm'>
   @can('notifications.show')
-  <a data-toggle="tooltip" data-placement="bottom" title="{{trans('lang.view_details')}}" href="{{ route('notifications.show', $id) }}" class='btn btn-link'>
+  <a data-toggle="tooltip" data-placement="bottom" title="{{trans('lang.notification_read')}}" href="{{ route('notifications.show', $id) }}" class='btn btn-link'>
     <i class="fa fa-eye"></i>
   </a>
   @endcan

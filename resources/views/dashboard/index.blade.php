@@ -31,7 +31,7 @@
                     <div class="icon">
                         <i class="fa fa-shopping-bag"></i>
                     </div>
-                    <a href="{!! route('foodOrders.index') !!}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{!! route('orders.index') !!}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <!-- ./col -->
@@ -39,7 +39,7 @@
                 <!-- small box -->
                 <div class="small-box bg-danger">
                     <div class="inner">
-                        @if(setting('currency_right') != null)
+                        @if(setting('currency_right',false) != false)
                             <h3>{{$earning}}{{setting('default_currency')}}</h3>
                         @else
                             <h3>{{setting('default_currency')}}{{$earning}}</h3>
@@ -99,7 +99,7 @@
                     <div class="card-body">
                         <div class="d-flex">
                             <p class="d-flex flex-column">
-                                @if(setting('currency_right') != null)
+                                @if(setting('currency_right',false) != false)
                                     <span class="text-bold text-lg">{{$earning}}{{setting('default_currency')}}</span>
                                 @else
                                     <span class="text-bold text-lg">{{setting('default_currency')}}{{$earning}}</span>

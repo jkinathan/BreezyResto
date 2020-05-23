@@ -20,6 +20,18 @@
             <div class="form-text text-muted">{{ trans("lang.favorite_user_id_help") }}</div>
         </div>
     </div>
+
+    <!-- Method Field -->
+    <div class="form-group row ">
+        {!! Form::label('method', trans("lang.payment_method"), ['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            {!! Form::text('method', null,  ['class' => 'form-control','placeholder'=>  trans("lang.payment_method_placeholder")]) !!}
+            <div class="form-text text-muted">
+                {{ trans("lang.payment_method_help") }}
+            </div>
+        </div>
+    </div>
+    
 </div>
 <div style="flex: 50%;max-width: 50%;padding: 0 4px;" class="column">
 
@@ -33,6 +45,22 @@
             </div>
         </div>
     </div>
+
+    <!-- Status Field -->
+    <div class="form-group row ">
+        {!! Form::label('status', trans("lang.payment_status"),['class' => 'col-3 control-label text-right']) !!}
+        <div class="col-9">
+            {!! Form::select('status',
+            [
+            'Waiting for Client' => 'Waiting for Client',
+            'Not Paid' => trans('lang.order_not_paid'),
+            'Paid' => trans('lang.order_paid'),
+            ]
+            , $payment->status, ['class' => 'select2 form-control']) !!}
+            <div class="form-text text-muted">{{ trans("lang.payment_status_help") }}</div>
+        </div>
+    </div>
+
 </div>
 @if($customFields)
     <div class="clearfix"></div>

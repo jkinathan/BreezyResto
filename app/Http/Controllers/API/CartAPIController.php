@@ -160,7 +160,7 @@ class CartAPIController extends Controller
 
         }
 
-        $this->cartRepository->delete($id);
+        $cart = $this->cartRepository->delete($id);
 
         return $this->sendResponse($cart, __('lang.deleted_successfully',['operator' => __('lang.cart')]));
 

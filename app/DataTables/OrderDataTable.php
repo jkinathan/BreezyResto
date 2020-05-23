@@ -33,6 +33,15 @@ class OrderDataTable extends DataTable
             ->editColumn('updated_at', function ($order) {
                 return getDateColumn($order, 'updated_at');
             })
+            ->editColumn('delivery_fee', function ($order) {
+                return getPriceColumn($order, 'delivery_fee');
+            })
+            ->editColumn('tax', function ($order) {
+                return $order->tax . "%";
+            })
+            ->editColumn('payment.status', function ($order) {
+                return getPayment($order->payment,'status');
+            })
             ->addColumn('action', 'orders.datatables_actions')
             ->rawColumns(array_merge($columns, ['action']));
 
@@ -54,21 +63,37 @@ class OrderDataTable extends DataTable
             ],
             [
                 'data' => 'user.name',
+                'name' => 'user.name',
                 'title' => trans('lang.order_user_id'),
 
             ],
             [
                 'data' => 'order_status.status',
+                'name' => 'orderStatus.status',
                 'title' => trans('lang.order_order_status_id'),
 
             ],
             [
                 'data' => 'tax',
                 'title' => trans('lang.order_tax'),
+                'searchable' => false,
+
+            ],
+            [
+                'data' => 'delivery_fee',
+                'title' => trans('lang.order_delivery_fee'),
+                'searchable' => false,
+
+            ],
+            [
+                'data' => 'payment.status',
+                'name' => 'payment.status',
+                'title' => trans('lang.payment_status'),
 
             ],
             [
                 'data' => 'payment.method',
+                'name' => 'payment.method',
                 'title' => trans('lang.payment_method'),
 
             ],
@@ -76,6 +101,8 @@ class OrderDataTable extends DataTable
                 'data' => 'updated_at',
                 'title' => trans('lang.order_updated_at'),
                 'searchable' => false,
+                'orderable' => true,
+
             ]
         ];
 
@@ -103,15 +130,15 @@ class OrderDataTable extends DataTable
     public function query(Order $model)
     {
         if (auth()->user()->hasRole('admin')) {
-            return $model->newQuery()->with("user")->with("orderStatus")->with('payment')->select('orders.*')->orderBy('id', 'desc');
+            return $model->newQuery()->with("user")->with("orderStatus")->with('payment');
         } else {
-            return $model->newQuery()->with("user")->with("orderStatus")
+            return $model->newQuery()->with("user")->with("orderStatus")->with('payment')
                 ->join("food_orders", "orders.id", "=", "food_orders.order_id")
                 ->join("foods", "foods.id", "=", "food_orders.food_id")
                 ->join("user_restaurants", "user_restaurants.restaurant_id", "=", "foods.restaurant_id")
                 ->where('user_restaurants.user_id', auth()->id())
                 ->groupBy('orders.id')
-                ->select('orders.*')->orderBy('id', 'desc');
+                ->select('orders.*');
         }
     }
 
@@ -127,11 +154,13 @@ class OrderDataTable extends DataTable
             ->minifiedAjax()
             ->addAction(['width' => '80px', 'printable' => false, 'responsivePriority' => '100'])
             ->parameters(array_merge(
-                config('datatables-buttons.parameters'), [
+                [
                     'language' => json_decode(
                         file_get_contents(base_path('resources/lang/' . app()->getLocale() . '/datatable.json')
-                        ), true)
-                ]
+                        ), true),
+                    'order' => [ [0, 'desc'] ],
+                ],
+                config('datatables-buttons.parameters')
             ));
     }
 

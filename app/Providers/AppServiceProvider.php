@@ -40,15 +40,20 @@ class AppServiceProvider extends ServiceProvider
 
         config(['services.facebook.client_id' => setting('facebook_app_id')]);
         config(['services.facebook.client_secret' => setting('facebook_app_secret')]);
+        config(['services.facebook.redirect' => url('login/facebook/callback')]);
         config(['services.twitter.client_id' => setting('twitter_app_id')]);
         config(['services.twitter.client_secret' => setting('twitter_app_secret')]);
+        config(['services.twitter.redirect' => url('login/twitter/callback')]);
         config(['services.google.client_id' => setting('google_app_id')]);
         config(['services.google.client_secret' => setting('google_app_secret')]);
+        config(['services.google.redirect' => url('login/google/callback')]);
 
         config(['services.stripe.key' => setting('stripe_key')]);
         config(['services.stripe.secret' => setting('stripe_secret')]);
         Stripe::setApiKey(setting('stripe_key'));
         Stripe::setClientId(setting('stripe_secret'));
+
+        config(['services.fcm.key' => setting('fcm_key','')]);
 
 
         config(['paypal.mode' => setting('paypal_mode',false) ? 'live' : 'sandbox']);

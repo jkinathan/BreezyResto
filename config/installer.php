@@ -15,7 +15,7 @@ return [
     |
     */
     'core' => [
-        'minPhpVersion' => '7.1.3'
+        'minPhpVersion' => '7.2'
     ],
     'final' => [
         'key' => true,
@@ -29,6 +29,7 @@ return [
             'tokenizer',
             'JSON',
             'cURL',
+            'exif',
         ],
         'apache' => [
             'mod_rewrite',
@@ -63,6 +64,7 @@ return [
         'form' => [
             'rules' => [
                 'app_name'              => 'required|string|max:50',
+                'purchase_code'              => 'required|string|max:36|min:36',
                 'environment'           => 'required|string|max:50',
                 'environment_custom'    => 'required_if:environment,other|max:50',
                 'app_debug'             => [
@@ -130,7 +132,7 @@ return [
     | route, abort, dump, 404, default, ''
     |
     */
-    'installedAlreadyAction' => '',
+    'installedAlreadyAction' => 'route',
 
     /*
     |--------------------------------------------------------------------------

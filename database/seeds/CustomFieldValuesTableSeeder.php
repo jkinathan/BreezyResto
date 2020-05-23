@@ -25,8 +25,8 @@ class CustomFieldValuesTableSeeder extends Seeder
                 'custom_field_id' => 4,
                 'customizable_type' => 'App\\Models\\User',
                 'customizable_id' => 18,
-                'created_at' => '2019-09-06 20:52:30',
-                'updated_at' => '2019-09-06 20:52:30',
+                'created_at' => '2019-09-06 21:52:30',
+                'updated_at' => '2019-09-06 21:52:30',
             ),
             1 => 
             array (
@@ -36,8 +36,8 @@ class CustomFieldValuesTableSeeder extends Seeder
                 'custom_field_id' => 5,
                 'customizable_type' => 'App\\Models\\User',
                 'customizable_id' => 18,
-                'created_at' => '2019-09-06 20:52:30',
-                'updated_at' => '2019-10-16 18:32:35',
+                'created_at' => '2019-09-06 21:52:30',
+                'updated_at' => '2019-10-16 19:32:35',
             ),
             2 => 
             array (
@@ -47,8 +47,8 @@ class CustomFieldValuesTableSeeder extends Seeder
                 'custom_field_id' => 6,
                 'customizable_type' => 'App\\Models\\User',
                 'customizable_id' => 18,
-                'created_at' => '2019-09-06 20:52:30',
-                'updated_at' => '2019-10-16 18:32:35',
+                'created_at' => '2019-09-06 21:52:30',
+                'updated_at' => '2019-10-16 19:32:35',
             ),
             3 => 
             array (
@@ -58,8 +58,8 @@ class CustomFieldValuesTableSeeder extends Seeder
                 'custom_field_id' => 4,
                 'customizable_type' => 'App\\Models\\User',
                 'customizable_id' => 1,
-                'created_at' => '2019-09-06 20:53:58',
-                'updated_at' => '2019-09-27 07:12:04',
+                'created_at' => '2019-09-06 21:53:58',
+                'updated_at' => '2019-09-27 08:12:04',
             ),
             4 => 
             array (
@@ -69,8 +69,8 @@ class CustomFieldValuesTableSeeder extends Seeder
                 'custom_field_id' => 5,
                 'customizable_type' => 'App\\Models\\User',
                 'customizable_id' => 1,
-                'created_at' => '2019-09-06 20:53:58',
-                'updated_at' => '2019-10-16 18:23:53',
+                'created_at' => '2019-09-06 21:53:58',
+                'updated_at' => '2019-10-16 19:23:53',
             ),
             5 => 
             array (
@@ -80,8 +80,8 @@ class CustomFieldValuesTableSeeder extends Seeder
                 'custom_field_id' => 6,
                 'customizable_type' => 'App\\Models\\User',
                 'customizable_id' => 1,
-                'created_at' => '2019-09-06 20:53:58',
-                'updated_at' => '2019-10-16 18:23:53',
+                'created_at' => '2019-09-06 21:53:58',
+                'updated_at' => '2019-10-16 19:23:53',
             ),
             6 => 
             array (
@@ -91,8 +91,8 @@ class CustomFieldValuesTableSeeder extends Seeder
                 'custom_field_id' => 4,
                 'customizable_type' => 'App\\Models\\User',
                 'customizable_id' => 19,
-                'created_at' => '2019-10-15 16:21:32',
-                'updated_at' => '2019-10-17 22:21:43',
+                'created_at' => '2019-10-15 17:21:32',
+                'updated_at' => '2019-10-17 23:21:43',
             ),
             7 => 
             array (
@@ -102,8 +102,8 @@ class CustomFieldValuesTableSeeder extends Seeder
                 'custom_field_id' => 5,
                 'customizable_type' => 'App\\Models\\User',
                 'customizable_id' => 19,
-                'created_at' => '2019-10-15 16:21:32',
-                'updated_at' => '2019-10-17 22:21:12',
+                'created_at' => '2019-10-15 17:21:32',
+                'updated_at' => '2019-10-17 23:21:12',
             ),
             8 => 
             array (
@@ -113,8 +113,8 @@ class CustomFieldValuesTableSeeder extends Seeder
                 'custom_field_id' => 6,
                 'customizable_type' => 'App\\Models\\User',
                 'customizable_id' => 19,
-                'created_at' => '2019-10-15 16:21:32',
-                'updated_at' => '2019-10-17 22:21:43',
+                'created_at' => '2019-10-15 17:21:32',
+                'updated_at' => '2019-10-17 23:21:43',
             ),
             9 => 
             array (
@@ -124,8 +124,8 @@ class CustomFieldValuesTableSeeder extends Seeder
                 'custom_field_id' => 4,
                 'customizable_type' => 'App\\Models\\User',
                 'customizable_id' => 20,
-                'created_at' => '2019-10-16 18:31:46',
-                'updated_at' => '2019-10-16 18:31:46',
+                'created_at' => '2019-10-16 19:31:46',
+                'updated_at' => '2019-10-16 19:31:46',
             ),
             10 => 
             array (
@@ -135,8 +135,8 @@ class CustomFieldValuesTableSeeder extends Seeder
                 'custom_field_id' => 5,
                 'customizable_type' => 'App\\Models\\User',
                 'customizable_id' => 20,
-                'created_at' => '2019-10-16 18:31:46',
-                'updated_at' => '2019-10-16 18:31:46',
+                'created_at' => '2019-10-16 19:31:46',
+                'updated_at' => '2019-10-16 19:31:46',
             ),
             11 => 
             array (
@@ -146,8 +146,74 @@ class CustomFieldValuesTableSeeder extends Seeder
                 'custom_field_id' => 6,
                 'customizable_type' => 'App\\Models\\User',
                 'customizable_id' => 20,
-                'created_at' => '2019-10-16 18:31:46',
-                'updated_at' => '2019-10-16 18:31:46',
+                'created_at' => '2019-10-16 19:31:46',
+                'updated_at' => '2019-10-16 19:31:46',
+            ),
+            12 => 
+            array (
+                'id' => 41,
+                'value' => '+136 226 5669',
+                'view' => '+136 226 5669',
+                'custom_field_id' => 4,
+                'customizable_type' => 'App\\Models\\User',
+                'customizable_id' => 22,
+                'created_at' => '2019-12-15 18:49:44',
+                'updated_at' => '2019-12-15 18:49:44',
+            ),
+            13 => 
+            array (
+                'id' => 42,
+                'value' => '<p>Short Bio</p>',
+                'view' => 'Short Bio',
+                'custom_field_id' => 5,
+                'customizable_type' => 'App\\Models\\User',
+                'customizable_id' => 22,
+                'created_at' => '2019-12-15 18:49:44',
+                'updated_at' => '2019-12-15 18:49:44',
+            ),
+            14 => 
+            array (
+                'id' => 43,
+                'value' => '4722 Villa Drive',
+                'view' => '4722 Villa Drive',
+                'custom_field_id' => 6,
+                'customizable_type' => 'App\\Models\\User',
+                'customizable_id' => 22,
+                'created_at' => '2019-12-15 18:49:44',
+                'updated_at' => '2019-12-15 18:49:44',
+            ),
+            15 => 
+            array (
+                'id' => 44,
+                'value' => '+136 955 6525',
+                'view' => '+136 955 6525',
+                'custom_field_id' => 4,
+                'customizable_type' => 'App\\Models\\User',
+                'customizable_id' => 24,
+                'created_at' => '2020-03-29 17:28:04',
+                'updated_at' => '2020-03-29 17:28:04',
+            ),
+            16 => 
+            array (
+                'id' => 45,
+                'value' => '<p>Short bio for this driver</p>',
+                'view' => 'Short bio for this driver',
+                'custom_field_id' => 5,
+                'customizable_type' => 'App\\Models\\User',
+                'customizable_id' => 24,
+                'created_at' => '2020-03-29 17:28:05',
+                'updated_at' => '2020-03-29 17:28:05',
+            ),
+            17 => 
+            array (
+                'id' => 46,
+                'value' => '4722 Villa Drive',
+                'view' => '4722 Villa Drive',
+                'custom_field_id' => 6,
+                'customizable_type' => 'App\\Models\\User',
+                'customizable_id' => 24,
+                'created_at' => '2020-03-29 17:28:05',
+                'updated_at' => '2020-03-29 17:28:05',
             ),
         ));
         

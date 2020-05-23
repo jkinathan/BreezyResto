@@ -29,8 +29,8 @@ class CustomFieldsTableSeeder extends Seeder
                 'bootstrap_column' => 6,
                 'order' => 2,
                 'custom_field_model' => 'App\\Models\\User',
-                'created_at' => '2019-09-06 20:30:00',
-                'updated_at' => '2019-09-06 20:31:47',
+                'created_at' => '2019-09-06 21:30:00',
+                'updated_at' => '2019-09-06 21:31:47',
             ),
             1 => 
             array (
@@ -44,8 +44,8 @@ class CustomFieldsTableSeeder extends Seeder
                 'bootstrap_column' => 6,
                 'order' => 1,
                 'custom_field_model' => 'App\\Models\\User',
-                'created_at' => '2019-09-06 20:43:58',
-                'updated_at' => '2019-09-06 20:43:58',
+                'created_at' => '2019-09-06 21:43:58',
+                'updated_at' => '2019-09-06 21:43:58',
             ),
             2 => 
             array (
@@ -59,8 +59,8 @@ class CustomFieldsTableSeeder extends Seeder
                 'bootstrap_column' => 6,
                 'order' => 3,
                 'custom_field_model' => 'App\\Models\\User',
-                'created_at' => '2019-09-06 20:49:22',
-                'updated_at' => '2019-09-06 20:49:22',
+                'created_at' => '2019-09-06 21:49:22',
+                'updated_at' => '2019-09-06 21:49:22',
             ),
         ));
         

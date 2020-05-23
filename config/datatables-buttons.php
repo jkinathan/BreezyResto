@@ -70,9 +70,9 @@ return [
         'colReorder' => true,
         'responsive' => true,
         'stateSave' => true,
-        'language' => [
-            'url' => base_path('resources/lang/en/datatable.json'),
-        ],
+//        'language' => [
+//            'url' => base_path('resources/lang/en/datatable.json'),
+//        ],
         "initComplete" => "function(settings){renderButtons( settings.sTableId)}",
     ]
 ];

@@ -1,56 +1,63 @@
 <!-- Id Field -->
-<div class="form-group row col-6">
-  {!! Form::label('id', 'Id:', ['class' => 'col-3 control-label text-right']) !!}
+<div class="form-group row col-md-6 col-sm-12">
+  {!! Form::label('id', trans('lang.order_id'), ['class' => 'col-3 control-label']) !!}
   <div class="col-9">
-    <p>{!! $order->id !!}</p>
+    <p>#{!! $order->id !!}</p>
   </div>
-</div>
 
-<!-- User Id Field -->
-<div class="form-group row col-6">
-  {!! Form::label('user_id', 'User Id:', ['class' => 'col-3 control-label text-right']) !!}
+  {!! Form::label('order_client', trans('lang.order_client'), ['class' => 'col-3 control-label']) !!}
   <div class="col-9">
-    <p>{!! $order->user_id !!}</p>
+    <p>{!! $order->user->name !!}</p>
   </div>
-</div>
 
-<!-- Order Status Id Field -->
-<div class="form-group row col-6">
-  {!! Form::label('order_status_id', 'Order Status Id:', ['class' => 'col-3 control-label text-right']) !!}
+  {!! Form::label('order_client_phone', trans('lang.order_client_phone'), ['class' => 'col-3 control-label']) !!}
   <div class="col-9">
-    <p>{!! $order->order_status_id !!}</p>
+    <p>{!! isset($order->user->custom_fields['phone']) ? $order->user->custom_fields['phone']['view'] : "" !!}</p>
   </div>
-</div>
 
-<!-- Tax Field -->
-<div class="form-group row col-6">
-  {!! Form::label('tax', 'Tax:', ['class' => 'col-3 control-label text-right']) !!}
+  {!! Form::label('delivery_address', trans('lang.delivery_address'), ['class' => 'col-3 control-label']) !!}
   <div class="col-9">
-    <p>{!! $order->tax !!}</p>
+    <p>{!! $order->deliveryAddress ? $order->deliveryAddress->address : '' !!}</p>
   </div>
-</div>
 
-<!-- Hint Field -->
-<div class="form-group row col-6">
-  {!! Form::label('hint', 'Hint:', ['class' => 'col-3 control-label text-right']) !!}
-  <div class="col-9">
-    <p>{!! $order->hint !!}</p>
-  </div>
-</div>
-
-<!-- Created At Field -->
-<div class="form-group row col-6">
-  {!! Form::label('created_at', 'Created At:', ['class' => 'col-3 control-label text-right']) !!}
+  {!! Form::label('order_delivery_date', trans('lang.order_delivery_date'), ['class' => 'col-3 control-label']) !!}
   <div class="col-9">
     <p>{!! $order->created_at !!}</p>
   </div>
+
+
 </div>
 
-<!-- Updated At Field -->
-<div class="form-group row col-6">
-  {!! Form::label('updated_at', 'Updated At:', ['class' => 'col-3 control-label text-right']) !!}
+<!-- Order Status Id Field -->
+<div class="form-group row col-md-6 col-sm-12">
+  {!! Form::label('order_status_id', trans('lang.order_status_status'), ['class' => 'col-3 control-label']) !!}
   <div class="col-9">
-    <p>{!! $order->updated_at !!}</p>
+    <p>{!! $order->orderStatus->status  !!}</p>
   </div>
+
+  {!! Form::label('payment_method', trans('lang.payment_method'), ['class' => 'col-3 control-label']) !!}
+  <div class="col-9">
+    <p>{!! isset($order->payment) ? $order->payment->method : ''  !!}</p>
+  </div>
+
+  {!! Form::label('payment_status', trans('lang.payment_status'), ['class' => 'col-3 control-label']) !!}
+  <div class="col-9">
+    <p>{!! isset($order->status) ? $order->payment->status : trans('lang.order_not_paid')  !!}</p>
+  </div>
+
+  {!! Form::label('hint', 'Hint:', ['class' => 'col-3 control-label']) !!}
+  <div class="col-9">
+    <p>{!! $order->hint !!}</p>
+  </div>
+
 </div>
+
+{{--<!-- Tax Field -->--}}
+{{--<div class="form-group row col-md-6 col-sm-12">--}}
+{{--  {!! Form::label('tax', 'Tax:', ['class' => 'col-3 control-label']) !!}--}}
+{{--  <div class="col-9">--}}
+{{--    <p>{!! $order->tax !!}</p>--}}
+{{--  </div>--}}
+{{--</div>--}}
+
 

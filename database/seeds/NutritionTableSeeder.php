@@ -23,8 +23,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 100,
                 'food_id' => 1,
-                'created_at' => '2019-08-31 09:55:28',
-                'updated_at' => '2019-08-31 09:55:28',
+                'created_at' => '2019-08-31 10:55:28',
+                'updated_at' => '2019-08-31 10:55:28',
             ),
             1 => 
             array (
@@ -32,8 +32,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 20,
                 'food_id' => 2,
-                'created_at' => '2019-10-09 12:26:28',
-                'updated_at' => '2019-10-09 12:26:28',
+                'created_at' => '2019-10-09 13:26:28',
+                'updated_at' => '2019-10-09 13:26:28',
             ),
             2 => 
             array (
@@ -41,8 +41,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Lipide',
                 'quantity' => 63,
                 'food_id' => 3,
-                'created_at' => '2019-10-17 22:10:54',
-                'updated_at' => '2019-10-17 22:11:31',
+                'created_at' => '2019-10-17 23:10:54',
+                'updated_at' => '2019-10-17 23:11:31',
             ),
             3 => 
             array (
@@ -50,8 +50,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 100,
                 'food_id' => 3,
-                'created_at' => '2019-10-17 22:11:06',
-                'updated_at' => '2019-10-17 22:11:06',
+                'created_at' => '2019-10-17 23:11:06',
+                'updated_at' => '2019-10-17 23:11:06',
             ),
             4 => 
             array (
@@ -59,8 +59,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 14,
                 'food_id' => 3,
-                'created_at' => '2019-10-17 22:11:17',
-                'updated_at' => '2019-10-17 22:11:17',
+                'created_at' => '2019-10-17 23:11:17',
+                'updated_at' => '2019-10-17 23:11:17',
             ),
             5 => 
             array (
@@ -68,8 +68,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 100,
                 'food_id' => 2,
-                'created_at' => '2019-08-31 09:55:28',
-                'updated_at' => '2019-08-31 09:55:28',
+                'created_at' => '2019-08-31 10:55:28',
+                'updated_at' => '2019-08-31 10:55:28',
             ),
             6 => 
             array (
@@ -77,8 +77,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 20,
                 'food_id' => 5,
-                'created_at' => '2019-10-09 12:26:28',
-                'updated_at' => '2019-10-09 12:26:28',
+                'created_at' => '2019-10-09 13:26:28',
+                'updated_at' => '2019-10-09 13:26:28',
             ),
             7 => 
             array (
@@ -86,8 +86,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Lipide',
                 'quantity' => 63,
                 'food_id' => 5,
-                'created_at' => '2019-10-17 22:10:54',
-                'updated_at' => '2019-10-17 22:11:31',
+                'created_at' => '2019-10-17 23:10:54',
+                'updated_at' => '2019-10-17 23:11:31',
             ),
             8 => 
             array (
@@ -95,8 +95,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 100,
                 'food_id' => 5,
-                'created_at' => '2019-10-17 22:11:06',
-                'updated_at' => '2019-10-17 22:11:06',
+                'created_at' => '2019-10-17 23:11:06',
+                'updated_at' => '2019-10-17 23:11:06',
             ),
             9 => 
             array (
@@ -104,8 +104,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 14,
                 'food_id' => 9,
-                'created_at' => '2019-10-17 22:11:17',
-                'updated_at' => '2019-10-17 22:11:17',
+                'created_at' => '2019-10-17 23:11:17',
+                'updated_at' => '2019-10-17 23:11:17',
             ),
             10 => 
             array (
@@ -113,8 +113,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 100,
                 'food_id' => 7,
-                'created_at' => '2019-08-31 09:55:28',
-                'updated_at' => '2019-08-31 09:55:28',
+                'created_at' => '2019-08-31 10:55:28',
+                'updated_at' => '2019-08-31 10:55:28',
             ),
             11 => 
             array (
@@ -122,8 +122,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 20,
                 'food_id' => 14,
-                'created_at' => '2019-10-09 12:26:28',
-                'updated_at' => '2019-10-09 12:26:28',
+                'created_at' => '2019-10-09 13:26:28',
+                'updated_at' => '2019-10-09 13:26:28',
             ),
             12 => 
             array (
@@ -131,8 +131,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Lipide',
                 'quantity' => 63,
                 'food_id' => 16,
-                'created_at' => '2019-10-17 22:10:54',
-                'updated_at' => '2019-10-17 22:11:31',
+                'created_at' => '2019-10-17 23:10:54',
+                'updated_at' => '2019-10-17 23:11:31',
             ),
             13 => 
             array (
@@ -140,8 +140,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 100,
                 'food_id' => 7,
-                'created_at' => '2019-10-17 22:11:06',
-                'updated_at' => '2019-10-17 22:11:06',
+                'created_at' => '2019-10-17 23:11:06',
+                'updated_at' => '2019-10-17 23:11:06',
             ),
             14 => 
             array (
@@ -149,8 +149,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 14,
                 'food_id' => 13,
-                'created_at' => '2019-10-17 22:11:17',
-                'updated_at' => '2019-10-17 22:11:17',
+                'created_at' => '2019-10-17 23:11:17',
+                'updated_at' => '2019-10-17 23:11:17',
             ),
             15 => 
             array (
@@ -158,8 +158,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 100,
                 'food_id' => 13,
-                'created_at' => '2019-08-31 09:55:28',
-                'updated_at' => '2019-08-31 09:55:28',
+                'created_at' => '2019-08-31 10:55:28',
+                'updated_at' => '2019-08-31 10:55:28',
             ),
             16 => 
             array (
@@ -167,8 +167,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 20,
                 'food_id' => 9,
-                'created_at' => '2019-10-09 12:26:28',
-                'updated_at' => '2019-10-09 12:26:28',
+                'created_at' => '2019-10-09 13:26:28',
+                'updated_at' => '2019-10-09 13:26:28',
             ),
             17 => 
             array (
@@ -176,8 +176,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Lipide',
                 'quantity' => 63,
                 'food_id' => 12,
-                'created_at' => '2019-10-17 22:10:54',
-                'updated_at' => '2019-10-17 22:11:31',
+                'created_at' => '2019-10-17 23:10:54',
+                'updated_at' => '2019-10-17 23:11:31',
             ),
             18 => 
             array (
@@ -185,8 +185,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 100,
                 'food_id' => 6,
-                'created_at' => '2019-10-17 22:11:06',
-                'updated_at' => '2019-10-17 22:11:06',
+                'created_at' => '2019-10-17 23:11:06',
+                'updated_at' => '2019-10-17 23:11:06',
             ),
             19 => 
             array (
@@ -194,8 +194,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 14,
                 'food_id' => 3,
-                'created_at' => '2019-10-17 22:11:17',
-                'updated_at' => '2019-10-17 22:11:17',
+                'created_at' => '2019-10-17 23:11:17',
+                'updated_at' => '2019-10-17 23:11:17',
             ),
             20 => 
             array (
@@ -203,8 +203,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 100,
                 'food_id' => 2,
-                'created_at' => '2019-08-31 09:55:28',
-                'updated_at' => '2019-08-31 09:55:28',
+                'created_at' => '2019-08-31 10:55:28',
+                'updated_at' => '2019-08-31 10:55:28',
             ),
             21 => 
             array (
@@ -212,8 +212,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 20,
                 'food_id' => 12,
-                'created_at' => '2019-10-09 12:26:28',
-                'updated_at' => '2019-10-09 12:26:28',
+                'created_at' => '2019-10-09 13:26:28',
+                'updated_at' => '2019-10-09 13:26:28',
             ),
             22 => 
             array (
@@ -221,8 +221,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Lipide',
                 'quantity' => 63,
                 'food_id' => 10,
-                'created_at' => '2019-10-17 22:10:54',
-                'updated_at' => '2019-10-17 22:11:31',
+                'created_at' => '2019-10-17 23:10:54',
+                'updated_at' => '2019-10-17 23:11:31',
             ),
             23 => 
             array (
@@ -230,8 +230,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 100,
                 'food_id' => 10,
-                'created_at' => '2019-10-17 22:11:06',
-                'updated_at' => '2019-10-17 22:11:06',
+                'created_at' => '2019-10-17 23:11:06',
+                'updated_at' => '2019-10-17 23:11:06',
             ),
             24 => 
             array (
@@ -239,8 +239,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 14,
                 'food_id' => 6,
-                'created_at' => '2019-10-17 22:11:17',
-                'updated_at' => '2019-10-17 22:11:17',
+                'created_at' => '2019-10-17 23:11:17',
+                'updated_at' => '2019-10-17 23:11:17',
             ),
             25 => 
             array (
@@ -248,8 +248,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 100,
                 'food_id' => 3,
-                'created_at' => '2019-08-31 09:55:28',
-                'updated_at' => '2019-08-31 09:55:28',
+                'created_at' => '2019-08-31 10:55:28',
+                'updated_at' => '2019-08-31 10:55:28',
             ),
             26 => 
             array (
@@ -257,8 +257,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 20,
                 'food_id' => 3,
-                'created_at' => '2019-10-09 12:26:28',
-                'updated_at' => '2019-10-09 12:26:28',
+                'created_at' => '2019-10-09 13:26:28',
+                'updated_at' => '2019-10-09 13:26:28',
             ),
             27 => 
             array (
@@ -266,8 +266,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Lipide',
                 'quantity' => 63,
                 'food_id' => 4,
-                'created_at' => '2019-10-17 22:10:54',
-                'updated_at' => '2019-10-17 22:11:31',
+                'created_at' => '2019-10-17 23:10:54',
+                'updated_at' => '2019-10-17 23:11:31',
             ),
             28 => 
             array (
@@ -275,8 +275,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 100,
                 'food_id' => 12,
-                'created_at' => '2019-10-17 22:11:06',
-                'updated_at' => '2019-10-17 22:11:06',
+                'created_at' => '2019-10-17 23:11:06',
+                'updated_at' => '2019-10-17 23:11:06',
             ),
             29 => 
             array (
@@ -284,8 +284,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 14,
                 'food_id' => 8,
-                'created_at' => '2019-10-17 22:11:17',
-                'updated_at' => '2019-10-17 22:11:17',
+                'created_at' => '2019-10-17 23:11:17',
+                'updated_at' => '2019-10-17 23:11:17',
             ),
             30 => 
             array (
@@ -293,8 +293,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 100,
                 'food_id' => 9,
-                'created_at' => '2019-08-31 09:55:28',
-                'updated_at' => '2019-08-31 09:55:28',
+                'created_at' => '2019-08-31 10:55:28',
+                'updated_at' => '2019-08-31 10:55:28',
             ),
             31 => 
             array (
@@ -302,8 +302,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 20,
                 'food_id' => 13,
-                'created_at' => '2019-10-09 12:26:28',
-                'updated_at' => '2019-10-09 12:26:28',
+                'created_at' => '2019-10-09 13:26:28',
+                'updated_at' => '2019-10-09 13:26:28',
             ),
             32 => 
             array (
@@ -311,8 +311,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Lipide',
                 'quantity' => 63,
                 'food_id' => 9,
-                'created_at' => '2019-10-17 22:10:54',
-                'updated_at' => '2019-10-17 22:11:31',
+                'created_at' => '2019-10-17 23:10:54',
+                'updated_at' => '2019-10-17 23:11:31',
             ),
             33 => 
             array (
@@ -320,8 +320,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 100,
                 'food_id' => 16,
-                'created_at' => '2019-10-17 22:11:06',
-                'updated_at' => '2019-10-17 22:11:06',
+                'created_at' => '2019-10-17 23:11:06',
+                'updated_at' => '2019-10-17 23:11:06',
             ),
             34 => 
             array (
@@ -329,8 +329,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 14,
                 'food_id' => 5,
-                'created_at' => '2019-10-17 22:11:17',
-                'updated_at' => '2019-10-17 22:11:17',
+                'created_at' => '2019-10-17 23:11:17',
+                'updated_at' => '2019-10-17 23:11:17',
             ),
             35 => 
             array (
@@ -338,8 +338,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 100,
                 'food_id' => 11,
-                'created_at' => '2019-08-31 09:55:28',
-                'updated_at' => '2019-08-31 09:55:28',
+                'created_at' => '2019-08-31 10:55:28',
+                'updated_at' => '2019-08-31 10:55:28',
             ),
             36 => 
             array (
@@ -347,8 +347,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 20,
                 'food_id' => 15,
-                'created_at' => '2019-10-09 12:26:28',
-                'updated_at' => '2019-10-09 12:26:28',
+                'created_at' => '2019-10-09 13:26:28',
+                'updated_at' => '2019-10-09 13:26:28',
             ),
             37 => 
             array (
@@ -356,8 +356,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Lipide',
                 'quantity' => 63,
                 'food_id' => 10,
-                'created_at' => '2019-10-17 22:10:54',
-                'updated_at' => '2019-10-17 22:11:31',
+                'created_at' => '2019-10-17 23:10:54',
+                'updated_at' => '2019-10-17 23:11:31',
             ),
             38 => 
             array (
@@ -365,8 +365,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Proteins',
                 'quantity' => 100,
                 'food_id' => 5,
-                'created_at' => '2019-10-17 22:11:06',
-                'updated_at' => '2019-10-17 22:11:06',
+                'created_at' => '2019-10-17 23:11:06',
+                'updated_at' => '2019-10-17 23:11:06',
             ),
             39 => 
             array (
@@ -374,8 +374,8 @@ class NutritionTableSeeder extends Seeder
                 'name' => 'Sugar',
                 'quantity' => 14,
                 'food_id' => 16,
-                'created_at' => '2019-10-17 22:11:17',
-                'updated_at' => '2019-10-17 22:11:17',
+                'created_at' => '2019-10-17 23:11:17',
+                'updated_at' => '2019-10-17 23:11:17',
             ),
         ));
         

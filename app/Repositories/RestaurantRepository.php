@@ -29,7 +29,9 @@ class RestaurantRepository extends BaseRepository
         'longitude',
         'phone',
         'mobile',
-        'information'
+        'information',
+        'delivery_fee',
+        'admin_commission',
     ];
 
     /**

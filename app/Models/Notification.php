@@ -11,23 +11,21 @@ use Eloquent as Model;
  *
  * @property \App\Models\NotificationType notificationType
  * @property \App\Models\User user
- * @property string title
- * @property integer notification_type_id
- * @property integer user_id
- * @property boolean read
+ * @property string type
+ * @property string read
  */
 class Notification extends Model
 {
 
     public $table = 'notifications';
+    protected $primaryKey = 'id'; // or null
+    public $incrementing = false;
     
 
 
     public $fillable = [
-        'title',
-        'notification_type_id',
-        'user_id',
-        'read'
+        'type',
+        'read_at'
     ];
 
     /**
@@ -36,10 +34,8 @@ class Notification extends Model
      * @var array
      */
     protected $casts = [
-        'title' => 'string',
-        'notification_type_id' => 'integer',
-        'user_id' => 'integer',
-        'read' => 'boolean'
+        'type' => 'string',
+        'read_at' => 'date'
     ];
 
     /**
@@ -48,9 +44,7 @@ class Notification extends Model
      * @var array
      */
     public static $rules = [
-        'title' => 'required',
-        'notification_type_id' => 'required|exists:notification_types,id',
-        'user_id' => 'required|exists:users,id'
+        'type' => 'required',
     ];
 
     /**
@@ -85,17 +79,9 @@ class Notification extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      **/
-    public function notificationType()
-    {
-        return $this->belongsTo(\App\Models\NotificationType::class, 'notification_type_id', 'id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     **/
     public function user()
     {
-        return $this->belongsTo(\App\Models\User::class, 'user_id', 'id');
+        return $this->belongsTo(\App\Models\User::class, 'notifiable_id', 'id');
     }
     
 }

@@ -20,16 +20,6 @@
                 <li class="nav-item">
                     <a class="nav-link active" href="{!! url()->current() !!}"><i class="fa fa-cog mr-2"></i>{{trans('lang.app_setting_'.$tab)}}</a>
                 </li>
-                @can('notificationTypes.index')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{!! route('notificationTypes.index') !!}"><i class="fa fa-list mr-2"></i>{{trans('lang.notification_type_table')}}</a>
-                    </li>
-                @endcan
-                @can('notificationTypes.create')
-                    <li class="nav-item">
-                        <a class="nav-link" href="{!! route('notificationTypes.create') !!}"><i class="fa fa-plus mr-2"></i>{{trans('lang.notification_type_create')}}</a>
-                    </li>
-                @endcan
             </ul>
         </div>
         <div class="card-body">
@@ -58,10 +48,98 @@
                     </div>
                 </div>
 
+                <!-- firebase_api_key Field -->
+                <div class="form-group row col-6">
+                    {!! Form::label('firebase_api_key', trans('lang.app_setting_firebase_api_key'), ['class' => 'col-4 control-label text-right']) !!}
+                    <div class="col-8">
+                        {!! Form::text('firebase_api_key', setting('firebase_api_key'),  ['class' => 'form-control','placeholder'=>  trans('lang.app_setting_firebase_api_key_placeholder')]) !!}
+                        <div class="form-text text-muted">
+                            {!! trans('lang.app_setting_firebase_api_key_help') !!}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- firebase_auth_domain Field -->
+                <div class="form-group row col-6">
+                    {!! Form::label('firebase_auth_domain', trans('lang.app_setting_firebase_auth_domain'), ['class' => 'col-4 control-label text-right']) !!}
+                    <div class="col-8">
+                        {!! Form::text('firebase_auth_domain', setting('firebase_auth_domain'),  ['class' => 'form-control','placeholder'=>  trans('lang.app_setting_firebase_auth_domain_placeholder')]) !!}
+                        <div class="form-text text-muted">
+                            {!! trans('lang.app_setting_firebase_auth_domain_help') !!}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- firebase_database_url Field -->
+                <div class="form-group row col-6">
+                    {!! Form::label('firebase_database_url', trans('lang.app_setting_firebase_database_url'), ['class' => 'col-4 control-label text-right']) !!}
+                    <div class="col-8">
+                        {!! Form::text('firebase_database_url', setting('firebase_database_url'),  ['class' => 'form-control','placeholder'=>  trans('lang.app_setting_firebase_database_url_placeholder')]) !!}
+                        <div class="form-text text-muted">
+                            {!! trans('lang.app_setting_firebase_database_url_help') !!}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- firebase_project_id Field -->
+                <div class="form-group row col-6">
+                    {!! Form::label('firebase_project_id', trans('lang.app_setting_firebase_project_id'), ['class' => 'col-4 control-label text-right']) !!}
+                    <div class="col-8">
+                        {!! Form::text('firebase_project_id', setting('firebase_project_id'),  ['class' => 'form-control','placeholder'=>  trans('lang.app_setting_firebase_project_id_placeholder')]) !!}
+                        <div class="form-text text-muted">
+                            {!! trans('lang.app_setting_firebase_project_id_help') !!}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- firebase_storage_bucket Field -->
+                <div class="form-group row col-6">
+                    {!! Form::label('firebase_storage_bucket', trans('lang.app_setting_firebase_storage_bucket'), ['class' => 'col-4 control-label text-right']) !!}
+                    <div class="col-8">
+                        {!! Form::text('firebase_storage_bucket', setting('firebase_storage_bucket'),  ['class' => 'form-control','placeholder'=>  trans('lang.app_setting_firebase_storage_bucket_placeholder')]) !!}
+                        <div class="form-text text-muted">
+                            {!! trans('lang.app_setting_firebase_storage_bucket_help') !!}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- firebase_messaging_sender_id Field -->
+                <div class="form-group row col-6">
+                    {!! Form::label('firebase_messaging_sender_id', trans('lang.app_setting_firebase_messaging_sender_id'), ['class' => 'col-4 control-label text-right']) !!}
+                    <div class="col-8">
+                        {!! Form::text('firebase_messaging_sender_id', setting('firebase_messaging_sender_id'),  ['class' => 'form-control','placeholder'=>  trans('lang.app_setting_firebase_messaging_sender_id_placeholder')]) !!}
+                        <div class="form-text text-muted">
+                            {!! trans('lang.app_setting_firebase_messaging_sender_id_help') !!}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- firebase_app_id Field -->
+                <div class="form-group row col-6">
+                    {!! Form::label('firebase_app_id', trans('lang.app_setting_firebase_app_id'), ['class' => 'col-4 control-label text-right']) !!}
+                    <div class="col-8">
+                        {!! Form::text('firebase_app_id', setting('firebase_app_id'),  ['class' => 'form-control','placeholder'=>  trans('lang.app_setting_firebase_app_id_placeholder')]) !!}
+                        <div class="form-text text-muted">
+                            {!! trans('lang.app_setting_firebase_app_id_help') !!}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- firebase_measurement_id Field -->
+                <div class="form-group row col-6">
+                    {!! Form::label('firebase_measurement_id', trans('lang.app_setting_firebase_measurement_id'), ['class' => 'col-4 control-label text-right']) !!}
+                    <div class="col-8">
+                        {!! Form::text('firebase_measurement_id', setting('firebase_measurement_id'),  ['class' => 'form-control','placeholder'=>  trans('lang.app_setting_firebase_measurement_id_placeholder')]) !!}
+                        <div class="form-text text-muted">
+                            {!! trans('lang.app_setting_firebase_measurement_id_help') !!}
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Submit Field -->
                 <div class="form-group mt-4 col-12 text-right">
                     <button type="submit" class="btn btn-{{setting('theme_color')}}">
-                        <i class="fa fa-save"></i> {{trans('lang.save')}} {{trans('lang.app_setting_payment')}}
+                        <i class="fa fa-save"></i> {{trans('lang.save')}} {{trans('lang.app_setting_notification')}}
                     </button>
                     <a href="{!! route('users.index') !!}" class="btn btn-default"><i class="fa fa-undo"></i> {{trans('lang.cancel')}}</a>
                 </div>

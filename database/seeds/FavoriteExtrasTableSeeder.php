@@ -24,15 +24,20 @@ class FavoriteExtrasTableSeeder extends Seeder
             ),
             1 => 
             array (
-                'extra_id' => 2,
-                'favorite_id' => 3,
+                'extra_id' => 1,
+                'favorite_id' => 26,
             ),
             2 => 
             array (
                 'extra_id' => 2,
-                'favorite_id' => 14,
+                'favorite_id' => 3,
             ),
             3 => 
+            array (
+                'extra_id' => 2,
+                'favorite_id' => 14,
+            ),
+            4 => 
             array (
                 'extra_id' => 2,
                 'favorite_id' => 25,

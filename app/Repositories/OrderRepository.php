@@ -25,6 +25,8 @@ class OrderRepository extends BaseRepository
         'tax',
         'hint',
         'payment_id',
+        'delivery_address_id',
+        'driver_id',
     ];
 
     /**

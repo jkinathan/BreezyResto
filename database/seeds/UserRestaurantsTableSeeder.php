@@ -20,22 +20,22 @@ class UserRestaurantsTableSeeder extends Seeder
             0 => 
             array (
                 'user_id' => 1,
-                'restaurant_id' => 2,
+                'restaurant_id' => 3,
             ),
             1 => 
             array (
                 'user_id' => 1,
-                'restaurant_id' => 3,
+                'restaurant_id' => 4,
             ),
             2 => 
             array (
-                'user_id' => 1,
-                'restaurant_id' => 4,
+                'user_id' => 18,
+                'restaurant_id' => 1,
             ),
             3 => 
             array (
                 'user_id' => 18,
-                'restaurant_id' => 1,
+                'restaurant_id' => 2,
             ),
         ));
         

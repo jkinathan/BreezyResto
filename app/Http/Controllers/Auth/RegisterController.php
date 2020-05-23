@@ -84,9 +84,11 @@ class RegisterController extends Controller
         $defaultRoles = $defaultRoles->pluck('name')->toArray();
         $user->assignRole($defaultRoles);
 
-        $user->addMediaFromUrl("https://na.ui-avatars.com/api/?name=".str_replace(" ","+",$user->name))
-            ->withCustomProperties(['uuid' => bcrypt(str_random())])
-            ->toMediaCollection('avatar');
+        if(copy(public_path('images/avatar_default.png'),public_path('images/avatar_default_temp.png'))){
+            $user->addMedia(public_path('images/avatar_default_temp.png'))
+                ->withCustomProperties(['uuid' => bcrypt(str_random())])
+                ->toMediaCollection('avatar');
+        }
 
         return $user;
     }

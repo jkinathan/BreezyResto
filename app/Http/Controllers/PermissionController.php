@@ -37,7 +37,7 @@ class PermissionController extends Controller
 
     public function refreshPermissions(Request $request){
 //        dd('ff');
-        Artisan::call('db:seed',['--class'=>'PermissionsTableSeeder']);
+        Artisan::call('db:seed',['--class'=> 'DemoPermissionsPermissionsTableSeeder']);
         redirect()->back();
         //Flash::success('Permission refreshed successfully.');
 
@@ -45,13 +45,21 @@ class PermissionController extends Controller
     }
 
     public function givePermissionToRole(Request $request){
-        $input = Request::all();
-        $this->permissionRepository->givePermissionToRole($input);
+        if(env('APP_DEMO',false)) {
+            Flash::warning('This is only demo app you can\'t change this section ');
+        }else{
+            $input = Request::all();
+            $this->permissionRepository->givePermissionToRole($input);
+        }
     }
 
     public function revokePermissionToRole(Request $request){
-        $input = Request::all();
-        $this->permissionRepository->revokePermissionToRole($input);
+        if(env('APP_DEMO',false)) {
+            Flash::warning('This is only demo app you can\'t change this section ');
+        }else{
+            $input = Request::all();
+            $this->permissionRepository->revokePermissionToRole($input);
+        }
     }
 
     public function roleHasPermission(Request $request){
@@ -81,6 +89,10 @@ class PermissionController extends Controller
      */
     public function store(CreatePermissionRequest $request)
     {
+        if(env('APP_DEMO',false)) {
+            Flash::warning('This is only demo app you can\'t change this section ');
+            return redirect(route('permissions.index'));
+        }
         $input = $request->all();
 
         $permission = $this->permissionRepository->create($input);
@@ -140,6 +152,10 @@ class PermissionController extends Controller
      */
     public function update($id, UpdatePermissionRequest $request)
     {
+        if(env('APP_DEMO',false)) {
+            Flash::warning('This is only demo app you can\'t change this section ');
+            return redirect(route('permissions.index'));
+        }
         $permission = $this->permissionRepository->findWithoutFail($id);
 
         if (empty($permission)) {
@@ -164,6 +180,10 @@ class PermissionController extends Controller
      */
     public function destroy($id)
     {
+        if(env('APP_DEMO',false)) {
+            Flash::warning('This is only demo app you can\'t change this section ');
+            return redirect(route('permissions.index'));
+        }
         $permission = $this->permissionRepository->findWithoutFail($id);
 
         if (empty($permission)) {

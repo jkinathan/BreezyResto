@@ -39,7 +39,7 @@ class AppSettingsTableSeeder extends Seeder
             array (
                 'id' => 18,
                 'key' => 'app_name',
-                'value' => 'Multi-Restaurants',
+                'value' => 'Food Delivery',
             ),
             4 => 
             array (
@@ -57,49 +57,49 @@ class AppSettingsTableSeeder extends Seeder
             array (
                 'id' => 21,
                 'key' => 'mail_host',
-                'value' => 'smtp.mailtrap.io',
+                'value' => 'smtp.hostinger.com',
             ),
             7 => 
             array (
                 'id' => 22,
                 'key' => 'mail_port',
-                'value' => '2525',
+                'value' => '587',
             ),
             8 => 
             array (
                 'id' => 23,
                 'key' => 'mail_username',
-                'value' => 'cb1bbb56ad7b2e',
+                'value' => 'fooddelivery@smartersvision.com',
             ),
             9 => 
             array (
                 'id' => 24,
                 'key' => 'mail_password',
-                'value' => 'b005c361fdcf5b',
+                'value' => 'NnvAwk&&E7',
             ),
             10 => 
             array (
                 'id' => 25,
                 'key' => 'mail_encryption',
-                'value' => 'tls',
+                'value' => 'ssl',
             ),
             11 => 
             array (
                 'id' => 26,
                 'key' => 'mail_from_address',
-                'value' => '3c3ed03f69-5d3964@inbox.mailtrap.io',
+                'value' => 'fooddelivery@smartersvision.com',
             ),
             12 => 
             array (
                 'id' => 27,
                 'key' => 'mail_from_name',
-                'value' => 'Hola',
+                'value' => 'Smarter Vision',
             ),
             13 => 
             array (
                 'id' => 30,
                 'key' => 'timezone',
-                'value' => 'Africa/Algiers',
+                'value' => 'America/Montserrat',
             ),
             14 => 
             array (
@@ -111,7 +111,7 @@ class AppSettingsTableSeeder extends Seeder
             array (
                 'id' => 33,
                 'key' => 'theme_color',
-                'value' => 'danger',
+                'value' => 'primary',
             ),
             16 => 
             array (
@@ -123,13 +123,13 @@ class AppSettingsTableSeeder extends Seeder
             array (
                 'id' => 35,
                 'key' => 'nav_color',
-                'value' => 'navbar-dark bg-primary',
+                'value' => 'navbar-light bg-white',
             ),
             18 => 
             array (
                 'id' => 38,
                 'key' => 'logo_bg_color',
-                'value' => 'bg-primary',
+                'value' => 'bg-white',
             ),
             19 => 
             array (
@@ -225,52 +225,122 @@ class AppSettingsTableSeeder extends Seeder
             array (
                 'id' => 108,
                 'key' => 'fixed_header',
-                'value' => NULL,
+                'value' => '0',
             ),
             35 => 
             array (
                 'id' => 109,
                 'key' => 'fixed_footer',
-                'value' => NULL,
+                'value' => '0',
             ),
-            36 =>
-                array (
-                    'id' => 110,
-                    'key' => 'fcm_key',
-                    'value' => 'AAAAHMZiAQA:APA91bEb71b5sN5jl-w_mmt6vLfgGY5-_CQFxMQsVEfcwO3FAh4-mk1dM6siZwwR3Ls9U0pRDpm96WN1AmrMHQ906GxljILqgU2ZB6Y1TjiLyAiIUETpu7pQFyicER8KLvM9JUiXcfWK',
-                ),
-            37 =>
-                array (
-                    'id' => 111,
-                    'key' => 'enable_notifications',
-                    'value' =>'1',
-                ),
-            38 =>
-                array (
-                    'id' => 112,
-                    'key' => 'paypal_username',
-                    'value' =>'sb-z3gdq482047_api1.business.example.com',
-                ),
-            39 =>
-                array (
-                    'id' => 113,
-                    'key' => 'paypal_password',
-                    'value' =>'JV2A7G4SEMLMZ565',
-                ),
-            40 =>
-                array (
-                    'id' => 114,
-                    'key' => 'paypal_secret',
-                    'value' =>'AbMmSXVaig1ExpY3utVS3dcAjx7nAHH0utrZsUN6LYwPgo7wfMzrV5WZ',
-                ),
-            41 =>
-                array (
-                    'id' => 115,
-                    'key' => 'enable_paypal',
-                    'value' =>'1',
-                ),
-
-
+            36 => 
+            array (
+                'id' => 110,
+                'key' => 'fcm_key',
+                'value' => 'AAAAHMZiAQA:APA91bEb71b5sN5jl-w_mmt6vLfgGY5-_CQFxMQsVEfcwO3FAh4-mk1dM6siZwwR3Ls9U0pRDpm96WN1AmrMHQ906GxljILqgU2ZB6Y1TjiLyAiIUETpu7pQFyicER8KLvM9JUiXcfWK',
+            ),
+            37 => 
+            array (
+                'id' => 111,
+                'key' => 'enable_notifications',
+                'value' => '1',
+            ),
+            38 => 
+            array (
+                'id' => 112,
+                'key' => 'paypal_username',
+                'value' => 'sb-z3gdq482047_api1.business.example.com',
+            ),
+            39 => 
+            array (
+                'id' => 113,
+                'key' => 'paypal_password',
+                'value' => 'JV2A7G4SEMLMZ565',
+            ),
+            40 => 
+            array (
+                'id' => 114,
+                'key' => 'paypal_secret',
+                'value' => 'AbMmSXVaig1ExpY3utVS3dcAjx7nAHH0utrZsUN6LYwPgo7wfMzrV5WZ',
+            ),
+            41 => 
+            array (
+                'id' => 115,
+                'key' => 'enable_paypal',
+                'value' => '1',
+            ),
+            42 => 
+            array (
+                'id' => 116,
+                'key' => 'main_color',
+                'value' => '#ea5c44',
+            ),
+            43 => 
+            array (
+                'id' => 117,
+                'key' => 'main_dark_color',
+                'value' => '#ea5c44',
+            ),
+            44 => 
+            array (
+                'id' => 118,
+                'key' => 'second_color',
+                'value' => '#344968',
+            ),
+            45 => 
+            array (
+                'id' => 119,
+                'key' => 'second_dark_color',
+                'value' => '#ccccdd',
+            ),
+            46 => 
+            array (
+                'id' => 120,
+                'key' => 'accent_color',
+                'value' => '#8c98a8',
+            ),
+            47 => 
+            array (
+                'id' => 121,
+                'key' => 'accent_dark_color',
+                'value' => '#9999aa',
+            ),
+            48 => 
+            array (
+                'id' => 122,
+                'key' => 'scaffold_dark_color',
+                'value' => '#2c2c2c',
+            ),
+            49 => 
+            array (
+                'id' => 123,
+                'key' => 'scaffold_color',
+                'value' => '#fafafa',
+            ),
+            50 => 
+            array (
+                'id' => 124,
+                'key' => 'google_maps_key',
+                'value' => 'AIzaSyAT07iMlfZ9bJt1gmGj9KhJDLFY8srI6dA',
+            ),
+            51 => 
+            array (
+                'id' => 125,
+                'key' => 'mobile_language',
+                'value' => 'en',
+            ),
+            52 => 
+            array (
+                'id' => 126,
+                'key' => 'app_version',
+                'value' => '1.9.0',
+            ),
+            53 => 
+            array (
+                'id' => 127,
+                'key' => 'enable_version',
+                'value' => '1',
+            ),
         ));
         
         

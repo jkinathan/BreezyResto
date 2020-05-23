@@ -3,18 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\UserDataTable;
-use App\Http\Requests;
+use App\Events\UserRoleChangedEvent;
 use App\Http\Requests\CreateUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Repositories\CustomFieldRepository;
+use App\Repositories\RoleRepository;
 use App\Repositories\UploadRepository;
 use App\Repositories\UserRepository;
-use App\Repositories\RoleRepository;
 use Flash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Response;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -69,6 +68,7 @@ class UserController extends Controller
         $role = $this->roleRepository->pluck('name', 'name');
         $rolesSelected = $user->getRoleNames()->toArray();
         $customFieldsValues = $user->customFieldsValues()->with('customField')->get();
+        //dd($customFieldsValues);
         $hasCustomField = in_array($this->userRepository->model(), setting('custom_field_models', []));
         if ($hasCustomField) {
             $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->userRepository->model());
@@ -108,11 +108,17 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
+        if (env('APP_DEMO', false)) {
+            Flash::warning('This is only demo app you can\'t change this section ');
+            return redirect(route('users.index'));
+        }
+
         $input = $request->all();
         $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->userRepository->model());
 
         $input['roles'] = isset($input['roles']) ? $input['roles'] : [];
         $input['password'] = Hash::make($input['password']);
+        $input['api_token'] = str_random(60);
 
         try {
             $user = $this->userRepository->create($input);
@@ -124,6 +130,7 @@ class UserController extends Controller
                 $mediaItem = $cacheUpload->getMedia('avatar')->first();
                 $mediaItem->copy($user, 'avatar');
             }
+            event(new UserRoleChangedEvent($user));
         } catch (ValidatorException $e) {
             Flash::error($e->getMessage());
         }
@@ -136,7 +143,7 @@ class UserController extends Controller
     /**
      * Display the specified User.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -170,7 +177,7 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified User.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
@@ -202,13 +209,18 @@ class UserController extends Controller
     /**
      * Update the specified User in storage.
      *
-     * @param  int $id
+     * @param int $id
      * @param UpdateUserRequest $request
      *
      * @return Response
      */
     public function update($id, UpdateUserRequest $request)
     {
+        if (env('APP_DEMO', false)) {
+            Flash::warning('This is only demo app you can\'t change this section ');
+            return redirect(route('users.index'));
+        }
+
         $user = $this->userRepository->findWithoutFail($id);
 
         if (empty($user)) {
@@ -240,6 +252,7 @@ class UserController extends Controller
                 $user->customFieldsValues()
                     ->updateOrCreate(['custom_field_id' => $value['custom_field_id']], $value);
             }
+            event(new UserRoleChangedEvent($user));
         } catch (ValidatorException $e) {
             Flash::error($e->getMessage());
         }
@@ -248,17 +261,22 @@ class UserController extends Controller
         Flash::success('User updated successfully.');
 
         return redirect()->back();
+
     }
 
     /**
      * Remove the specified User from storage.
      *
-     * @param  int $id
+     * @param int $id
      *
      * @return Response
      */
     public function destroy($id)
     {
+        if (env('APP_DEMO', false)) {
+            Flash::warning('This is only demo app you can\'t change this section ');
+            return redirect(route('users.index'));
+        }
         $user = $this->userRepository->findWithoutFail($id);
 
         if (empty($user)) {
@@ -280,15 +298,19 @@ class UserController extends Controller
      */
     public function removeMedia(Request $request)
     {
-        if (auth()->user()->can('medias.delete')) {
-            $input = $request->all();
-            $user = $this->userRepository->findWithoutFail($input['id']);
-            try {
-                if ($user->hasMedia($input['collection'])) {
-                    $user->getFirstMedia($input['collection'])->delete();
+        if (env('APP_DEMO', false)) {
+            Flash::warning('This is only demo app you can\'t change this section ');
+        } else {
+            if (auth()->user()->can('medias.delete')) {
+                $input = $request->all();
+                $user = $this->userRepository->findWithoutFail($input['id']);
+                try {
+                    if ($user->hasMedia($input['collection'])) {
+                        $user->getFirstMedia($input['collection'])->delete();
+                    }
+                } catch (\Exception $e) {
+                    Log::error($e->getMessage());
                 }
-            } catch (\Exception $e) {
-                Log::error($e->getMessage());
             }
         }
     }

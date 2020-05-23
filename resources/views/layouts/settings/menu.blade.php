@@ -112,3 +112,31 @@
         </ul>
     </div>
 </div>
+
+
+<div class="card {{ Request::is('settings/mobile*') ? '' : 'collapsed-card' }}">
+    <div class="card-header">
+        <h3 class="card-title">{{trans('lang.mobile_menu')}}</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa {{ Request::is('settings/mobile*') ? 'fa-minus' : 'fa-plus' }}"></i>
+            </button>
+        </div>
+    </div>
+    <div class="card-body p-0">
+        <ul class="nav nav-pills flex-column">
+            <li class="nav-item">
+                <a href="{!! url('settings/mobile/globals') !!}" class="nav-link {{  Request::is('settings/mobile/globals*') ? 'selected' : '' }}">
+                    <i class="fa fa-inbox"></i> {{trans('lang.mobile_globals')}}
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="{!! url('settings/mobile/colors') !!}" class="nav-link {{  Request::is('settings/mobile/colors*') ? 'selected' : '' }}">
+                    <i class="fa fa-inbox"></i> {{trans('lang.mobile_colors')}}
+                </a>
+            </li>
+
+        </ul>
+    </div>
+</div>

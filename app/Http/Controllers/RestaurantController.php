@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Criteria\Users\DriversCriteria;
+use App\Criteria\Users\ManagersCriteria;
 use App\DataTables\RestaurantDataTable;
-use App\Http\Requests;
+use App\Events\RestaurantChangedEvent;
 use App\Http\Requests\CreateRestaurantRequest;
 use App\Http\Requests\UpdateRestaurantRequest;
-use App\Repositories\RestaurantRepository;
 use App\Repositories\CustomFieldRepository;
+use App\Repositories\RestaurantRepository;
 use App\Repositories\UploadRepository;
 use App\Repositories\UserRepository;
 use Flash;
@@ -62,14 +64,17 @@ class RestaurantController extends Controller
      */
     public function create()
     {
-        $user = $this->userRepository->pluck('name', 'id');
+
+        $user = $this->userRepository->getByCriteria(new ManagersCriteria())->pluck('name', 'id');
+        $drivers = $this->userRepository->getByCriteria(new DriversCriteria())->pluck('name', 'id');
         $usersSelected = [];
+        $driversSelected = [];
         $hasCustomField = in_array($this->restaurantRepository->model(), setting('custom_field_models', []));
         if ($hasCustomField) {
             $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->restaurantRepository->model());
             $html = generateCustomField($customFields);
         }
-        return view('restaurants.create')->with("customFields", isset($html) ? $html : false)->with("user", $user)->with("usersSelected", $usersSelected);
+        return view('restaurants.create')->with("customFields", isset($html) ? $html : false)->with("user", $user)->with("drivers", $drivers)->with("usersSelected", $usersSelected)->with("driversSelected", $driversSelected);
     }
 
     /**
@@ -82,8 +87,9 @@ class RestaurantController extends Controller
     public function store(CreateRestaurantRequest $request)
     {
         $input = $request->all();
-        if (auth()->user()->hasRole('manager')){
+        if (auth()->user()->hasRole('manager')) {
             $input['users'] = [auth()->id()];
+            unset($input['admin_commission']);
         }
         $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->restaurantRepository->model());
         try {
@@ -94,6 +100,7 @@ class RestaurantController extends Controller
                 $mediaItem = $cacheUpload->getMedia('image')->first();
                 $mediaItem->copy($restaurant, 'image');
             }
+            event(new RestaurantChangedEvent($restaurant));
         } catch (ValidatorException $e) {
             Flash::error($e->getMessage());
         }
@@ -133,8 +140,13 @@ class RestaurantController extends Controller
     public function edit($id)
     {
         $restaurant = $this->restaurantRepository->findWithoutFail($id);
-        $user = $this->userRepository->pluck('name', 'id');
+
+        $user = $this->userRepository->getByCriteria(new ManagersCriteria())->pluck('name', 'id');
+        $drivers = $this->userRepository->getByCriteria(new DriversCriteria())->pluck('name', 'id');
+
+
         $usersSelected = $restaurant->users()->pluck('users.id')->toArray();
+        $driversSelected = $restaurant->drivers()->pluck('users.id')->toArray();
 
         if (empty($restaurant)) {
             Flash::error(__('lang.not_found', ['operator' => __('lang.restaurant')]));
@@ -148,7 +160,7 @@ class RestaurantController extends Controller
             $html = generateCustomField($customFields, $customFieldsValues);
         }
 
-        return view('restaurants.edit')->with('restaurant', $restaurant)->with("customFields", isset($html) ? $html : false)->with("user", $user)->with("usersSelected", $usersSelected);
+        return view('restaurants.edit')->with('restaurant', $restaurant)->with("customFields", isset($html) ? $html : false)->with("user", $user)->with("drivers", $drivers)->with("usersSelected", $usersSelected)->with("driversSelected", $driversSelected);
     }
 
     /**
@@ -172,6 +184,7 @@ class RestaurantController extends Controller
         try {
             $restaurant = $this->restaurantRepository->update($input, $id);
             $input['users'] = isset($input['users']) ? $input['users'] : [];
+            $input['drivers'] = isset($input['drivers']) ? $input['drivers'] : [];
             if (isset($input['image']) && $input['image']) {
                 $cacheUpload = $this->uploadRepository->getByUuid($input['image']);
                 $mediaItem = $cacheUpload->getMedia('image')->first();
@@ -181,6 +194,7 @@ class RestaurantController extends Controller
                 $restaurant->customFieldsValues()
                     ->updateOrCreate(['custom_field_id' => $value['custom_field_id']], $value);
             }
+            event(new RestaurantChangedEvent($restaurant));
         } catch (ValidatorException $e) {
             Flash::error($e->getMessage());
         }

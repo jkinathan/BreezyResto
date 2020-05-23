@@ -11,6 +11,7 @@ use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Facades\Response;
 use Prettus\Validator\Exceptions\ValidatorException;
 
@@ -36,18 +37,17 @@ class UserAPIController extends Controller
 
     function login(Request $request)
     {
-        Log::warning($request->input('device_token'));
 
         if (auth()->attempt(['email' => $request->input('email'), 'password' => $request->input('password')])) {
             // Authentication passed...
             $user = auth()->user();
-            $user->device_token = $request->input('device_token');
+            $user->device_token = $request->input('device_token', '');
             $user->save();
             return $this->sendResponse($user, 'User retrieved successfully');
         }
 
         return $this->sendResponse([
-            'error' => 'You are Unauthenticated user',
+            'error' => 'Unauthenticated user',
             'code' => 401,
         ], 'User not logged');
 
@@ -72,9 +72,13 @@ class UserAPIController extends Controller
         $defaultRoles = $defaultRoles->pluck('name')->toArray();
         $user->assignRole($defaultRoles);
 
-        $user->addMediaFromUrl("https://na.ui-avatars.com/api/?name=" . str_replace(" ", "+", $user->name))
-            ->withCustomProperties(['uuid' => bcrypt(str_random())])
-            ->toMediaCollection('avatar');
+
+        if(copy(public_path('images/avatar_default.png'),public_path('images/avatar_default_temp.png'))){
+            $user->addMedia(public_path('images/avatar_default_temp.png'))
+                ->withCustomProperties(['uuid' => bcrypt(str_random())])
+                ->toMediaCollection('avatar');
+        }
+
 
         return $this->sendResponse($user, 'User retrieved successfully');
     }
@@ -125,10 +129,20 @@ class UserAPIController extends Controller
                 'currency_right' => '',
                 'enable_paypal' => '',
                 'enable_stripe' => '',
-
+                'main_color' => '',
+                'main_dark_color' => '',
+                'second_color' => '',
+                'second_dark_color' => '',
+                'accent_color' => '',
+                'accent_dark_color' => '',
+                'scaffold_dark_color' => '',
+                'scaffold_color' => '',
+                'google_maps_key' => '',
+                'mobile_language' => '',
+                'app_version' => '',
+                'enable_version' => '',
             ]
         );
-        Log::warning($settings);
 
         if (!$settings) {
             return $this->sendResponse([
@@ -159,13 +173,17 @@ class UserAPIController extends Controller
             ], 'User not found');
         }
         $input = $request->except(['password', 'api_token']);
-        $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->userRepository->model());
         try {
-            $user = $this->userRepository->update($input, $id);
+            if($request->has('device_token')){
+                $user = $this->userRepository->update($request->only('device_token'), $id);
+            }else{
+                $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->userRepository->model());
+                $user = $this->userRepository->update($input, $id);
 
-            foreach (getCustomFieldsValues($customFields, $request) as $value) {
-                $user->customFieldsValues()
-                    ->updateOrCreate(['custom_field_id' => $value['custom_field_id']], $value);
+                foreach (getCustomFieldsValues($customFields, $request) as $value) {
+                    $user->customFieldsValues()
+                        ->updateOrCreate(['custom_field_id' => $value['custom_field_id']], $value);
+                }
             }
         } catch (ValidatorException $e) {
             return $this->sendResponse([
@@ -175,5 +193,24 @@ class UserAPIController extends Controller
         }
 
         return $this->sendResponse($user, __('lang.updated_successfully', ['operator' => __('lang.user')]));
+    }
+
+    function sendResetLinkEmail(Request $request)
+    {
+        $this->validate($request, ['email' => 'required|email']);
+
+        $response = Password::broker()->sendResetLink(
+            $request->only('email')
+        );
+
+        if ($response == Password::RESET_LINK_SENT) {
+            return $this->sendResponse(true, 'Reset link was sent successfully');
+        } else {
+            return $this->sendError([
+                'error' => 'Reset link not sent',
+                'code' => 401,
+            ], 'Reset link not sent');
+        }
+
     }
 }

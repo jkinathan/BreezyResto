@@ -35,6 +35,10 @@ body {
     width: 2.4rem !important;
 }
 
+.nav-sidebar > .nav-item .nav-icon.fa-mobile {
+    font-size: 1.6rem;
+}
+
 .content-header {
     padding: 15px 1.5rem;
 }

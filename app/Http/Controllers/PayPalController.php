@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Invoice;
 use App\IPNStatus;
 use App\Item;
+use App\Notifications\NewOrder;
 use App\Repositories\CartRepository;
 use App\Repositories\FoodOrderRepository;
 use App\Repositories\NotificationRepository;
@@ -13,6 +14,7 @@ use App\Repositories\PaymentRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Notification;
 use Prettus\Validator\Exceptions\ValidatorException;
 use Srmklive\PayPal\Services\ExpressCheckout;
 
@@ -59,8 +61,9 @@ class PayPalController extends Controller
     public function getExpressCheckout(Request $request)
     {
         $user = $this->userRepository->findByField('api_token', $request->get('api_token'))->first();
+        $delivery_id = $request->get('delivery_address_id');
         if (!empty($user)) {
-            $cart = $this->getCheckoutData($user->id);
+            $cart = $this->getCheckoutData($user->id, $delivery_id);
 
             try {
                 $response = $this->provider->setExpressCheckout($cart);
@@ -74,11 +77,12 @@ class PayPalController extends Controller
     /**
      * Set cart data for processing payment on PayPal.
      *
-     * @param bool $recurring
+     * @param int $user_id
+     * @param int $delivery_id
      *
      * @return array
      */
-    protected function getCheckoutData($user_id)
+    protected function getCheckoutData($user_id, int $delivery_id = 0)
     {
         $data = [];
         $total = 0;
@@ -88,21 +92,30 @@ class PayPalController extends Controller
             if (!empty($user)) {
                 $carts = $this->cartRepository->findByField('user_id', $user_id);
                 foreach ($carts as $cart) {
-                    $price = $cart->food->price + ($cart->food->price * floatval(setting('default_tax',0))/100);
-                    $data['items'][] = [
-                        'name' => $cart->food->name,
-                        'price' => $price,
-                        'qty' => $cart->quantity,
-                    ];
+                    $price = $cart->food->price;
+                    foreach ($cart->extras as $extra){
+                        $price += $extra->price;
+                    }
                     $total += $price * $cart->quantity;
                 }
-                $data['tax'] = floatval(setting('default_tax',0))/100;
+
+                $total += $carts[0]->food->restaurant->delivery_fee;
+                Log::info($total * setting('default_tax')/100);
+                if (setting('default_tax',0) != 0){
+                    $total +=  $total * setting('default_tax')/100;
+                }
+                $total =  round($total, 2);
+                $data['items'][] = [
+                    'name' => $carts[0]->food->restaurant->name,
+                    'price' => $total,
+                    'qty' => 1,
+                ];
                 $data['total'] = $total;
-                $data['return_url'] = url('payments/paypal/express-checkout-success');
+                $data['return_url'] = url("payments/paypal/express-checkout-success?user_id=$user_id&delivery_address_id=$delivery_id");
                 $data['cancel_url'] = url('payments/paypal');
             }
             $data['invoice_id'] = $order_id.'_'.date("Y_m_d_h_i_sa");
-            $data['invoice_description'] = $user_id;
+            $data['invoice_description'] = $carts[0]->food->restaurant->name;
 
         } catch (ValidatorException $e) {
             return $data = [];
@@ -124,11 +137,14 @@ class PayPalController extends Controller
     {
         $token = $request->get('token');
         $PayerID = $request->get('PayerID');
+        $userId = $request->get('user_id');
+        $deliveryAddressId = $request->get('delivery_address_id');
+        Log::info($request->all());
 
         // Verify Express Checkout Token
         $response = $this->provider->getExpressCheckoutDetails($token);
-        $user_id = $response['DESC'];
-        $cart = $this->getCheckoutData($user_id);
+//        $userId = $response['DESC'];
+        $cart = $this->getCheckoutData($userId, $deliveryAddressId);
 
         if (in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
 
@@ -136,7 +152,7 @@ class PayPalController extends Controller
             $payment_status = $this->provider->doExpressCheckoutPayment($cart, $token, $PayerID);
             $status = $payment_status['PAYMENTINFO_0_PAYMENTSTATUS'];
             Log::info($payment_status);
-            $order = $this->createOrder($user_id, $status);
+            $order = $this->createOrder($userId, $deliveryAddressId, $status);
 
             if (!empty($order)) {
                 session()->put(['code' => 'success', 'message' => "Order $order->id has been paid successfully!"]);
@@ -157,14 +173,14 @@ class PayPalController extends Controller
      *
      * @return \App\Models\Order
      */
-    protected function createOrder($user_id, $status)
+    protected function createOrder($userId, $deliveryAddressId, $status)
     {
         if (!strcasecmp($status, 'Completed') || !strcasecmp($status, 'Processed')) {
             $amount = 0;
-            $user = $this->userRepository->findWithoutFail($user_id);
+            $user = $this->userRepository->findWithoutFail($userId);
             $orders = [];
             if (!empty($user)) {
-                $carts = $this->cartRepository->findByField('user_id', $user_id);
+                $carts = $this->cartRepository->findByField('user_id', $userId);
                 foreach ($carts as $cart) {
                     $orders['foods'][] = [
                         'food_id' => $cart->food->id,
@@ -175,8 +191,10 @@ class PayPalController extends Controller
 
                 }
                 $orders['user_id'] = $user->id;
+                $orders['delivery_address_id'] = $deliveryAddressId;
                 $orders['order_status_id'] = 1;
                 $orders['tax'] = setting('default_tax', 0);
+                $orders['delivery_fee'] = $cart->food->restaurant->delivery_fee;
             }
             $order = $this->orderRepository->create($orders);
             foreach ($orders['foods'] as $foodOrder) {
@@ -195,11 +213,8 @@ class PayPalController extends Controller
                 "status" => $status,
             ]);
             $this->orderRepository->update(['payment_id'=>$payment->id],$order->id);
-            $this->notificationRepository->create([
-                "title" => trans("lang.notification_order_done", ['order_id' => $order->id]),
-                "user_id" => $order->user_id,
-                "notification_type_id" => 1,
-            ]);
+
+            Notification::send($order->foodOrders[0]->food->restaurant->users, new NewOrder($order));
             return $order;
         } else {
             return null;

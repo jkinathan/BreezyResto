@@ -1,11 +1,11 @@
 <?php 
 
 return [
-    'back' => 'Geh zurück',
-    'back_to_home' => 'Zurück zum Profil',
+    'back' => 'Go Back',
+    'back_to_home' => 'Back to profile',
     'page' => [
-        'not_found' => 'Seite nicht gefunden',
+        'not_found' => 'Page not found',
     ],
-    'permission' => 'Benutzer hat keine Erlaubnis',
+    'permission' => 'User does not have the permission',
     'store_disabled' => 'store_disabled',
 ];

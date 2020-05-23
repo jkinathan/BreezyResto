@@ -26,7 +26,7 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         // User::$rules['password'] = 'required';
-         User::$rules['email'] = 'required|string|email|max:255|exists:users,email';
+         User::$rules['email'] = 'required|string|email|max:255';
         return User::$rules;
     }
 }

@@ -2,30 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use anlutro\LaravelSettings\SettingStore;
-use App\DataTables\UserDataTable;
-use App\Http\Requests;
-use App\Http\Requests\CreateUserRequest;
-use App\Http\Requests\UpdateUserRequest;
-use App\Models\Upload;
 use App\Repositories\CurrencyRepository;
+use App\Repositories\RoleRepository;
 use App\Repositories\UploadRepository;
 use App\Repositories\UserRepository;
-use App\Repositories\RoleRepository;
 use Flash;
-use function foo\func;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Lang;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Response;
-use Prettus\Validator\Exceptions\ValidatorException;
+use Illuminate\Support\Str;
+use RachidLaasri\LaravelInstaller\Helpers\MigrationsHelper;
 use Themsaid\Langman\Manager;
 
 class AppSettingController extends Controller
 {
+    use MigrationsHelper;
     /** @var  UserRepository */
     private $userRepository;
 
@@ -50,62 +41,114 @@ class AppSettingController extends Controller
 
     public function update(Request $request)
     {
-        $input = $request->except(['_method', '_token']);
-        if(ends_with(url()->previous(),"globals")){
-            if (empty($input['app_logo'])) {
-                unset($input['app_logo']);
+        if(!env('APP_DEMO',false)){
+            $input = $request->except(['_method', '_token']);
+            if (Str::endsWith(url()->previous(), "app/globals")) {
+                if (empty($input['app_logo'])) {
+                    unset($input['app_logo']);
+                }
+                if (empty($input['custom_field_models'])) {
+                    setting()->forget('custom_field_models');
+                }
+                if (!isset($input['blocked_ips'])) {
+                    unset($input['blocked_ips']);
+                    setting()->forget('blocked_ips');
+                }
             }
-            if (empty($input['custom_field_models'])) {
-                setting()->forget('custom_field_models');
-            }
-            if (!isset($input['blocked_ips'])) {
-                unset($input['blocked_ips']);
-                setting()->forget('blocked_ips');
-            }
+            $input = array_map(function ($value) { return is_null($value)? false : $value; }, $input);
+
+            setting($input)->save();
+            Flash::success(trans('lang.app_setting_global').' updated successfully.');
+            Artisan::call("config:clear");
+        }else{
+            Flash::warning('This is only demo app you can\'t change this section ');
         }
-        setting($input)->save();
-        Flash::success(trans('lang.app_setting_global').' updated successfully.');
-        Artisan::call("config:clear");
 
         return redirect()->back();
     }
 
     public function syncTranslation(Request $request)
     {
-        // TODO syncTranslation
-//        Flash::warning('Translate in admin panel is under development please use lang folders (resources/lang/...)');
-        Artisan::call('langman:sync');
+        if(!env('APP_DEMO',false)) {
+            Artisan::call('langman:sync');
+        }else{
+            Flash::warning('This is only demo app you can\'t change this section ');
+        }
+        return redirect()->back();
+    }
+
+    public function checkForUpdates(Request $request)
+    {
+        if (!env('APP_DEMO', false)) {
+            Artisan::call('config:clear');
+            Artisan::call('cache:clear');
+            Artisan::call('cache:forget', ['key' => 'spatie.permission.cache']);
+            Artisan::call('view:clear');
+            Artisan::call('route:clear');
+            $executedMigrations = $this->getExecutedMigrations();
+            $newMigrations = $this->getMigrations(config('installer.currentVersion', 'v100'));
+
+            $containsUpdate = !empty($newMigrations) && count(array_intersect($newMigrations, $executedMigrations->toArray())) == count($newMigrations);
+            if (!$containsUpdate) {
+                return redirect(url('update/' . config('installer.currentVersion', 'v100')));
+            }
+        }
+        Flash::warning(__('lang.app_setting_already_updated'));
+        return redirect()->back();
+
+    }
+
+    public function clearCache(Request $request)
+    {
+        if (!env('APP_DEMO', false)) {
+            Artisan::call('cache:forget', ['key' => 'spatie.permission.cache']);
+            Artisan::call('cache:clear');
+            Artisan::call('config:clear');
+            Artisan::call('view:clear');
+            Artisan::call('route:clear');
+            Flash::success(__('lang.app_setting_cache_is_cleared'));
+        } else {
+            Flash::warning('This is only demo app you can\'t change this section ');
+        }
         return redirect()->back();
     }
 
     public function translate(Request $request)
     {
-        // TODO translate from admin panel
-//        Flash::warning('Translate in admin panel is under development please use lang folders (resources/lang/...)');
-        $inputs = $request->except(['_method', '_token', '_current_lang']);
-        $currentLang = $request->input('_current_lang');
-        if (!$inputs && !count($inputs)) {
-            Flash::error('Translate not loaded');
-            return redirect()->back();
-        }
-        $langFiles = $this->langManager->files();
+        //translate only lang.php file
 
-        if (!$langFiles && !count($langFiles)) {
-            Flash::error('Translate not loaded');
-            return redirect()->back();
-        }
-        foreach ($langFiles as $filename => $items) {
-            $path = $items[$currentLang];
-            $needed = [];
-            foreach ($inputs as $key => $input) {
-                if (starts_with($key, $filename)) {
-                    $langKeyWithoutFile = explode('|',$key,2)[1];
-                    $needed = array_merge_recursive($needed , getNeededArray('|',$langKeyWithoutFile,$input));
-                }
+        if(!env('APP_DEMO',false)) {
+            $inputs = $request->except(['_method', '_token', '_current_lang']);
+            $currentLang = $request->input('_current_lang');
+            if (!$inputs && !count($inputs)) {
+                Flash::error('Translate not loaded');
+                return redirect()->back();
             }
-            ksort($needed);
-            $this->langManager->writeFile($path, $needed);
+            $langFiles = $this->langManager->files();
+            $langFiles = array_filter($langFiles, function($v, $k) {
+                return $k == 'lang';
+            }, ARRAY_FILTER_USE_BOTH);
+
+            if (!$langFiles && !count($langFiles)) {
+                Flash::error('Translate not loaded');
+                return redirect()->back();
+            }
+            foreach ($langFiles as $filename => $items) {
+                $path = $items[$currentLang];
+                $needed = [];
+                foreach ($inputs as $key => $input) {
+                    if (starts_with($key, $filename)) {
+                        $langKeyWithoutFile = explode('|',$key,2)[1];
+                        $needed = array_merge_recursive($needed , getNeededArray('|',$langKeyWithoutFile,$input));
+                    }
+                }
+                ksort($needed);
+                $this->langManager->writeFile($path, $needed);
+            }
+        }else{
+            Flash::warning('This is only demo app you can\'t change this section ');
         }
+
         return redirect()->back();
     }
 
@@ -116,8 +159,14 @@ class AppSettingController extends Controller
             Flash::error(trans('lang.app_setting_global').'not found');
             return redirect()->back();
         }
+        $executedMigrations = $this->getExecutedMigrations();
+        $newMigrations = $this->getMigrations(config('installer.currentVersion', 'v100'));
+
+        $containsUpdate = !empty($newMigrations) && count(array_intersect($newMigrations, $executedMigrations->toArray())) == count($newMigrations);
+
         $langFiles = [];
         $languages = getAvailableLanguages();
+        $mobileLanguages = getLanguages();
         if ($type && $type === 'translation' && $tab) {
             if (!array_has($languages, $tab)) {
                 Flash::error('Translate not loaded');
@@ -142,6 +191,13 @@ class AppSettingController extends Controller
 
         $customFieldModels = getModelsClasses(app_path('Models'));
 
-        return view('settings.' . $type . '.' . $tab . '', compact(['languages', 'type', 'tab', 'langFiles', 'timezones', 'upload', 'customFieldModels', 'currencies']));
+        return view('settings.' . $type . '.' . $tab . '', compact(['languages', 'type', 'tab', 'langFiles', 'timezones', 'upload', 'customFieldModels', 'currencies', 'mobileLanguages', 'containsUpdate']));
     }
+
+    public function initFirebase()
+    {
+        return response()->view('vendor.notifications.sw_firebase')->header('Content-Type', 'application/javascript');
+    }
+
+
 }

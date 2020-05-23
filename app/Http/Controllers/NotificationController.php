@@ -10,8 +10,10 @@ use App\Repositories\NotificationRepository;
 use App\Repositories\CustomFieldRepository;
 use App\Repositories\NotificationTypeRepository;
                 use App\Repositories\UserRepository;
+use Carbon\Carbon;
 use Flash;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Response;
 use Prettus\Validator\Exceptions\ValidatorException;
@@ -113,8 +115,17 @@ private $userRepository;
 
             return redirect(route('notifications.index'));
         }
+        try {
+            //dd((new Carbon('now'))->format('Y-m-d H:i:s'));
+            $notification = $this->notificationRepository->update(['read_at'=>(new Carbon())], $id);
 
-        return view('notifications.show')->with('notification', $notification);
+        } catch (ValidatorException $e) {
+            Flash::error($e->getMessage());
+        } catch (\Exception $e) {
+            Flash::error($e->getMessage());
+        }
+
+        return redirect(route('notifications.index'));
     }
 
     /**

@@ -52,6 +52,10 @@ class RoleController extends Controller
      */
     public function store(CreateRoleRequest $request)
     {
+        if(env('APP_DEMO',false)) {
+            Flash::warning('This is only demo app you can\'t change this section ');
+            return redirect(route('roles.index'));
+        }
         $input = $request->all();
 
         $role = $this->roleRepository->create($input);
@@ -111,6 +115,10 @@ class RoleController extends Controller
      */
     public function update($id, UpdateRoleRequest $request)
     {
+        if(env('APP_DEMO',false)) {
+            Flash::warning('This is only demo app you can\'t change this section ');
+            return redirect(route('roles.index'));
+        }
         $role = $this->roleRepository->findWithoutFail($id);
 
         if (empty($role)) {

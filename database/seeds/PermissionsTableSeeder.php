@@ -15,14 +15,16 @@ class PermissionsTableSeeder extends Seeder
     private $exceptNames = [
         'LaravelInstaller*',
         'LaravelUpdater*',
-        'debugbar*'
+        'debugbar*',
+        'cashier.*'
     ];
 
     private $exceptControllers = [
         'LoginController',
         'ForgotPasswordController',
         'ResetPasswordController',
-        'RegisterController'
+        'RegisterController',
+        'PayPalController'
     ];
 
     /**
@@ -70,6 +72,9 @@ class PermissionsTableSeeder extends Seeder
         if ($route->getName() === null) {
             return false;
         } else {
+            if(preg_match('/API/',class_basename($route->getController()))){
+                return false;
+            }
             if (in_array(class_basename($route->getController()), $this->exceptControllers)) {
                 return false;
             }

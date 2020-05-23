@@ -200,7 +200,7 @@ class Food extends Model implements HasMedia
      */
     public function getRestaurantAttribute()
     {
-        return $this->restaurant()->first(['id','name']);
+        return $this->restaurant()->first(['id','name','delivery_fee']);
     }
 
     

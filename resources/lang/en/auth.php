@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 return [
     'agree' => 'I agree to the terms',

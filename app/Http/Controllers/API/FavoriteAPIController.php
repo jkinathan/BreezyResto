@@ -3,17 +3,15 @@
 namespace App\Http\Controllers\API;
 
 
-use App\Http\Requests\CreateCartRequest;
-use App\Http\Requests\CreateFavoriteRequest;
+use App\Http\Requests\UpdateFavoriteRequest;
 use App\Models\Favorite;
 use App\Repositories\FavoriteRepository;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Response;
 use InfyOm\Generator\Criteria\LimitOffsetCriteria;
 use Prettus\Repository\Criteria\RequestCriteria;
-use Illuminate\Support\Facades\Response;
 use Prettus\Repository\Exceptions\RepositoryException;
-use Flash;
 use Prettus\Validator\Exceptions\ValidatorException;
 
 /**
@@ -44,7 +42,7 @@ class FavoriteAPIController extends Controller
             $this->favoriteRepository->pushCriteria(new RequestCriteria($request));
             $this->favoriteRepository->pushCriteria(new LimitOffsetCriteria($request));
         } catch (RepositoryException $e) {
-            Flash::error($e->getMessage());
+            return $this->sendError($e->getMessage());
         }
         $favorites = $this->favoriteRepository->all();
 
@@ -77,7 +75,7 @@ class FavoriteAPIController extends Controller
     /**
      * Store a newly created Favorite in storage.
      *
-     * @param CreateFavoriteRequest $request
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -97,7 +95,7 @@ class FavoriteAPIController extends Controller
     /**
      * Store a newly created Favorite in storage.
      *
-     * @param CreateFavoriteRequest $request
+     * @param Request $request
      *
      * @return \Illuminate\Http\JsonResponse
      */
@@ -112,6 +110,39 @@ class FavoriteAPIController extends Controller
         }
 
         return $this->sendResponse($favorites->first(), __('lang.saved_successfully',['operator' => __('lang.favorite')]));
+    }
+
+    /**
+     * Update the specified Favorite in storage.
+     *
+     * @param int $id
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function update($id, Request $request)
+    {
+        $favorite = $this->favoriteRepository->findWithoutFail($id);
+
+        if (empty($favorite)) {
+            return $this->sendError('Favorite not found');
+        }
+        $input = $request->all();
+        $customFields = $this->customFieldRepository->findByField('custom_field_model', $this->favoriteRepository->model());
+        try {
+            $favorite = $this->favoriteRepository->update($input, $id);
+            $input['extras'] = isset($input['extras']) ? $input['extras'] : [];
+
+            foreach (getCustomFieldsValues($customFields, $request) as $value) {
+                $favorite->customFieldsValues()
+                    ->updateOrCreate(['custom_field_id' => $value['custom_field_id']], $value);
+            }
+        } catch (ValidatorException $e) {
+            return $this->sendError($e->getMessage());
+        }
+
+        return $this->sendResponse($favorite->toArray(),__('lang.updated_successfully', ['operator' => __('lang.favorite')]));
+
     }
 
     /**

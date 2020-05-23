@@ -26,7 +26,6 @@ class Payment extends Model
         'description',
         'status',
         'method',
-        'order_id',
         'user_id'
     ];
 
@@ -41,7 +40,6 @@ class Payment extends Model
         'status' => 'string',
         'method' => 'string',
         'user_id' => 'integer',
-        'order_id' => 'integer'
     ];
 
     /**
@@ -53,7 +51,6 @@ class Payment extends Model
         'price' => 'required',
         'description' => 'required',
         'user_id' => 'required|exists:users,id',
-        'order_id' => 'required|exists:orders,id'
     ];
 
     /**

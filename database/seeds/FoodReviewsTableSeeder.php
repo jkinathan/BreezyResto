@@ -24,8 +24,8 @@ class FoodReviewsTableSeeder extends Seeder
                 'rate' => 4,
                 'user_id' => 18,
                 'food_id' => 1,
-                'created_at' => '2019-08-30 11:37:44',
-                'updated_at' => '2019-08-30 11:37:44',
+                'created_at' => '2019-08-30 12:37:44',
+                'updated_at' => '2019-08-30 12:37:44',
             ),
             1 => 
             array (
@@ -34,8 +34,8 @@ class FoodReviewsTableSeeder extends Seeder
                 'rate' => 4,
                 'user_id' => 1,
                 'food_id' => 2,
-                'created_at' => '2019-10-09 12:24:37',
-                'updated_at' => '2019-10-09 12:24:37',
+                'created_at' => '2019-10-09 13:24:37',
+                'updated_at' => '2019-10-09 13:24:37',
             ),
             2 => 
             array (
@@ -44,8 +44,8 @@ class FoodReviewsTableSeeder extends Seeder
                 'rate' => 4,
                 'user_id' => 19,
                 'food_id' => 3,
-                'created_at' => '2019-10-17 22:12:11',
-                'updated_at' => '2019-10-17 22:12:11',
+                'created_at' => '2019-10-17 23:12:11',
+                'updated_at' => '2019-10-17 23:12:11',
             ),
         ));
         

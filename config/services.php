@@ -60,4 +60,8 @@ return [
         'private_key' => env('BRAINTREE_PRIVATE_KEY'),
     ],
 
+    'fcm' => [
+        'key' => '',
+    ]
+
 ];

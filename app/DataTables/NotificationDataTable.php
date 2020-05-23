@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\Notification;
 use App\Models\CustomField;
-use Yajra\DataTables\Services\DataTable;
-use Yajra\DataTables\EloquentDataTable;
+use App\Models\Notification;
 use Barryvdh\DomPDF\Facade as PDF;
+use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Services\DataTable;
 
 class NotificationDataTable extends DataTable
 {
@@ -27,11 +27,17 @@ class NotificationDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
         $columns = array_column($this->getColumns(), 'data');
         $dataTable = $dataTable
+            ->editColumn('type', function ($notification) {
+                return  ('lang.' . preg_replace(['/App\\\/', '/\\\/'], ['', '_'], $notification->type));
+            })
             ->editColumn('updated_at', function ($notification) {
                 return getDateColumn($notification, 'updated_at');
             })
-            ->editColumn('read', function ($notification) {
-                return getBooleanColumn($notification, 'read');
+            ->editColumn('created_at', function ($notification) {
+                return getDateColumn($notification, 'created_at');
+            })
+            ->editColumn('read_at', function ($notification) {
+                return getBooleanColumn($notification, 'read_at');
             })
             ->addColumn('action', 'notifications.datatables_actions')
             ->rawColumns(array_merge($columns, ['action']));
@@ -40,21 +46,62 @@ class NotificationDataTable extends DataTable
     }
 
     /**
+     * Get columns.
+     *
+     * @return array
+     */
+    protected function getColumns()
+    {
+        $columns = [
+            [
+                'data' => 'type',
+                'title' => trans('lang.notification_title'),
+
+            ],
+            [
+                'data' => 'read_at',
+                'title' => trans('lang.notification_read'),
+
+            ],
+            [
+                'data' => 'updated_at',
+                'title' => trans('lang.notification_read_at'),
+                'searchable' => false,
+            ],
+            [
+                'data' => 'created_at',
+                'title' => trans('lang.notification_created_at'),
+                'searchable' => false,
+            ]
+        ];
+        $columns = array_filter($columns);
+        $hasCustomField = in_array(Notification::class, setting('custom_field_models', []));
+        if ($hasCustomField) {
+            $customFieldsCollection = CustomField::where('custom_field_model', Notification::class)->where('in_table', '=', true)->get();
+            foreach ($customFieldsCollection as $key => $field) {
+                array_splice($columns, $field->order - 1, 0, [[
+                    'data' => 'custom_fields.' . $field->name . '.view',
+                    'title' => trans('lang.notification_' . $field->name),
+                    'orderable' => false,
+                    'searchable' => false,
+                ]]);
+            }
+        }
+        return $columns;
+    }
+
+    /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Post $model
+     * @param \App\Models\Notification $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Notification $model)
     {
 
-        if (auth()->user()->hasRole('admin')) {
-            return $model->newQuery()->with("notificationType")->with("user")->orderBy('notifications.updated_at','desc');
-        } else {
-            return $model->newQuery()->with("notificationType")->with("user")
-                ->where('notifications.user_id', auth()->id())
-                ->orderBy('notifications.updated_at','desc');
-        }
+
+        return $model->newQuery()->where('notifications.notifiable_id', auth()->id())->select('notifications.*')->orderBy('notifications.updated_at', 'desc');
+
     }
 
     /**
@@ -78,53 +125,14 @@ class NotificationDataTable extends DataTable
     }
 
     /**
-     * Get columns.
-     *
-     * @return array
+     * Export PDF using DOMPDF
+     * @return mixed
      */
-    protected function getColumns()
+    public function pdf()
     {
-        $columns = [
-            [
-                'data' => 'title',
-                'title' => trans('lang.notification_title'),
-
-            ],
-            [
-                'data' => 'notification_type.type',
-                'title' => trans('lang.notification_notification_type_id'),
-
-            ],
-            (auth()->check() && auth()->user()->hasRole('admin')) ? [
-                'data' => 'user.name',
-                'title' => trans('lang.notification_user_id'),
-
-            ] : null,
-            [
-                'data' => 'read',
-                'title' => trans('lang.notification_read'),
-
-            ],
-            [
-                'data' => 'updated_at',
-                'title' => trans('lang.notification_updated_at'),
-                'searchable' => false,
-            ]
-        ];
-        $columns = array_filter($columns);
-        $hasCustomField = in_array(Notification::class, setting('custom_field_models', []));
-        if ($hasCustomField) {
-            $customFieldsCollection = CustomField::where('custom_field_model', Notification::class)->where('in_table', '=', true)->get();
-            foreach ($customFieldsCollection as $key => $field) {
-                array_splice($columns, $field->order - 1, 0, [[
-                    'data' => 'custom_fields.' . $field->name . '.view',
-                    'title' => trans('lang.notification_' . $field->name),
-                    'orderable' => false,
-                    'searchable' => false,
-                ]]);
-            }
-        }
-        return $columns;
+        $data = $this->getDataForPrint();
+        $pdf = PDF::loadView($this->printPreview, compact('data'));
+        return $pdf->download($this->filename() . '.pdf');
     }
 
     /**
@@ -135,16 +143,5 @@ class NotificationDataTable extends DataTable
     protected function filename()
     {
         return 'notificationsdatatable_' . time();
-    }
-
-    /**
-     * Export PDF using DOMPDF
-     * @return mixed
-     */
-    public function pdf()
-    {
-        $data = $this->getDataForPrint();
-        $pdf = PDF::loadView($this->printPreview, compact('data'));
-        return $pdf->download($this->filename() . '.pdf');
     }
 }

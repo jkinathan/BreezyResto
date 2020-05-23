@@ -6,6 +6,6 @@ return [
     'page' => [
         'not_found' => 'page.not_found',
     ],
-    'permission' => 'permission',
+    'permission' => 'User does not have the permission',
     'store_disabled' => 'store_disabled',
 ];

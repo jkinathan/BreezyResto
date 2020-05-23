@@ -25,8 +25,8 @@ class CurrenciesTableSeeder extends Seeder
                 'code' => 'USD',
                 'decimal_digits' => 2,
                 'rounding' => 0,
-                'created_at' => '2019-10-22 14:50:48',
-                'updated_at' => '2019-10-22 14:50:48',
+                'created_at' => '2019-10-22 15:50:48',
+                'updated_at' => '2019-10-22 15:50:48',
             ),
             1 => 
             array (
@@ -36,8 +36,8 @@ class CurrenciesTableSeeder extends Seeder
                 'code' => 'EUR',
                 'decimal_digits' => 2,
                 'rounding' => 0,
-                'created_at' => '2019-10-22 14:51:39',
-                'updated_at' => '2019-10-22 14:51:39',
+                'created_at' => '2019-10-22 15:51:39',
+                'updated_at' => '2019-10-22 15:51:39',
             ),
             2 => 
             array (
@@ -47,8 +47,8 @@ class CurrenciesTableSeeder extends Seeder
                 'code' => 'INR',
                 'decimal_digits' => 2,
                 'rounding' => 0,
-                'created_at' => '2019-10-22 14:52:50',
-                'updated_at' => '2019-10-22 14:52:50',
+                'created_at' => '2019-10-22 15:52:50',
+                'updated_at' => '2019-10-22 15:52:50',
             ),
             3 => 
             array (
@@ -58,8 +58,8 @@ class CurrenciesTableSeeder extends Seeder
                 'code' => 'IDR',
                 'decimal_digits' => 0,
                 'rounding' => 0,
-                'created_at' => '2019-10-22 14:53:22',
-                'updated_at' => '2019-10-22 14:53:22',
+                'created_at' => '2019-10-22 15:53:22',
+                'updated_at' => '2019-10-22 15:53:22',
             ),
             4 => 
             array (
@@ -69,8 +69,8 @@ class CurrenciesTableSeeder extends Seeder
                 'code' => 'BRL',
                 'decimal_digits' => 2,
                 'rounding' => 0,
-                'created_at' => '2019-10-22 14:54:00',
-                'updated_at' => '2019-10-22 14:54:00',
+                'created_at' => '2019-10-22 15:54:00',
+                'updated_at' => '2019-10-22 15:54:00',
             ),
             5 => 
             array (
@@ -80,8 +80,8 @@ class CurrenciesTableSeeder extends Seeder
                 'code' => 'KHR',
                 'decimal_digits' => 2,
                 'rounding' => 0,
-                'created_at' => '2019-10-22 14:55:51',
-                'updated_at' => '2019-10-22 14:55:51',
+                'created_at' => '2019-10-22 15:55:51',
+                'updated_at' => '2019-10-22 15:55:51',
             ),
             6 => 
             array (
@@ -91,8 +91,8 @@ class CurrenciesTableSeeder extends Seeder
                 'code' => 'VND',
                 'decimal_digits' => 0,
                 'rounding' => 0,
-                'created_at' => '2019-10-22 14:56:26',
-                'updated_at' => '2019-10-22 14:56:26',
+                'created_at' => '2019-10-22 15:56:26',
+                'updated_at' => '2019-10-22 15:56:26',
             ),
         ));
         

@@ -12,6 +12,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use Illuminate\Support\Facades\Response;
 use Prettus\Repository\Exceptions\RepositoryException;
 use Flash;
+use Prettus\Validator\Exceptions\ValidatorException;
 
 /**
  * Class FoodReviewController
@@ -68,5 +69,25 @@ class FoodReviewAPIController extends Controller
         }
 
         return $this->sendResponse($foodReview->toArray(), 'Food Review retrieved successfully');
+    }
+
+    /**
+     * Store a newly created FoodReview in storage.
+     *
+     * @param Request $request
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store(Request $request)
+    {
+        $uniqueInput = $request->only("user_id","food_id");
+        $otherInput = $request->except("user_id","food_id");
+        try {
+            $foodReview = $this->foodReviewRepository->updateOrCreate($uniqueInput,$otherInput);
+        } catch (ValidatorException $e) {
+            return $this->sendError('Food Review not found');
+        }
+
+        return $this->sendResponse($foodReview->toArray(),__('lang.saved_successfully',['operator' => __('lang.food_review')]));
     }
 }
