@@ -128,7 +128,7 @@ class OrderController extends Controller
     {
         $order = $this->orderRepository->findWithoutFail($id);
         $subtotal = 0;
-
+        //dd($order);
         if (empty($order)) {
             Flash::error('Order not found');
 

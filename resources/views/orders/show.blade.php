@@ -63,6 +63,10 @@
               <th class="text-right">{{trans('lang.order_total')}}</th>
               <td>{!!getPrice($total)!!}</td>
             </tr>
+            {{-- <tr>
+              <th class="text-right">Delivery Address</th>
+              <td>{{$order->delivery_address }}</td>
+            </tr> --}}
             </tbody></table>
         </div>
       </div>
