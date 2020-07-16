@@ -214,9 +214,9 @@ class OrderController extends Controller
                 }
             }
 
-            $this->paymentRepository->update([
-                "status" => $input['status'],
-            ], $order['payment_id']);
+            // $this->paymentRepository->update([
+            //     "status" => $input['status'],
+            // ], $order['payment_id']);
 
             event(new OrderChangedEvent($order));
 
