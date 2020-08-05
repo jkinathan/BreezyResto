@@ -43,8 +43,14 @@ class ExtraGroupController extends Controller
      */
     public function index(extraGroupDataTable $extraGroupDataTable)
     {
+        //dd($extraGroupDataTable);
         return $extraGroupDataTable->render('extra_groups.index');
     }
+
+    // public function pop(extraGroupDataTable $extraGroupDataTable)
+    // {
+    //     return $extraGroupDataTable->render('extra_groups.index');
+    // }
 
     /**
      * Show the form for creating a new extraGroup.

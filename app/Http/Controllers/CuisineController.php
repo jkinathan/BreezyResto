@@ -53,6 +53,7 @@ class CuisineController extends Controller
      */
     public function index(CuisineDataTable $cuisineDataTable)
     {
+        //dd($cuisineDataTable);
         return $cuisineDataTable->render('cuisines.index');
     }
 

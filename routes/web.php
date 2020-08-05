@@ -74,6 +74,9 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::post('cuisines/remove-media', 'CuisineController@removeMedia');
+
+    //Route::get('cuisines/','CuisineController@index')->name('cuz.newcuisines');
+
     Route::resource('cuisines', 'CuisineController')->except([
         'show'
     ]);
@@ -168,6 +171,10 @@ Route::middleware('auth')->group(function () {
     Route::resource('extraGroups', 'ExtraGroupController')->except([
         'show'
     ]);
+    
+    //new
+    Route::get('extraGroupsIndex/','ExtraController@index')->name('ExtraaG');
+    //new
 
     Route::post('extras/remove-media', 'ExtraController@removeMedia');
 
