@@ -15,7 +15,7 @@ class AppSettingsTableSeeder extends Seeder
         
 
         \DB::table('app_settings')->delete();
-        
+
         \DB::table('app_settings')->insert(array (
             0 => 
             array (
@@ -333,7 +333,7 @@ class AppSettingsTableSeeder extends Seeder
             array (
                 'id' => 126,
                 'key' => 'app_version',
-                'value' => '1.9.0',
+                'value' => '2.0.0',
             ),
             53 => 
             array (

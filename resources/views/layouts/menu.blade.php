@@ -15,6 +15,12 @@
 
 <li class="nav-header">{{trans('lang.app_management')}}</li>
 
+@can('cuisines.index')
+    <li class="nav-item">
+        <a class="nav-link {{ Request::is('cuisines*') ? 'active' : '' }}" href="{!! route('cuisines.index') !!}">@if($icons)<i class="nav-icon fa fa-globe"></i>@endif<p>{{trans('lang.cuisine_plural')}}</p></a>
+    </li>
+@endcan
+
 @can('restaurants.index')
     <li class="nav-item has-treeview {{ (Request::is('restaurants*') || Request::is('galleries*') || Request::is('restaurantReviews*')) && !Request::is('restaurantsPayouts*') ? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ (Request::is('restaurants*') || Request::is('galleries*') || Request::is('restaurantReviews*')) && !Request::is('restaurantsPayouts*')? 'active' : '' }}"> @if($icons)
@@ -45,21 +51,21 @@
     </li>
 @endcan
 
+@can('categories.index')
+    <li class="nav-item">
+        <a class="nav-link {{ Request::is('categories*') ? 'active' : '' }}" href="{!! route('categories.index') !!}">@if($icons)
+                <i class="nav-icon fa fa-folder"></i>@endif<p>{{trans('lang.category_plural')}}</p></a>
+    </li>
+@endcan
+
 @can('foods.index')
-    <li class="nav-item has-treeview {{ Request::is('categories*') || Request::is('foods*') || Request::is('extras*') || Request::is('foodReviews*') || Request::is('nutrition*') ? 'menu-open' : '' }}">
-        <a href="#" class="nav-link {{ Request::is('categories*') || Request::is('foods*') || Request::is('extras*') || Request::is('foodReviews*') || Request::is('nutrition*') ? 'active' : '' }}"> @if($icons)
+    <li class="nav-item has-treeview {{ Request::is('foods*') || Request::is('extra*') || Request::is('foodReviews*') || Request::is('nutrition*') ? 'menu-open' : '' }}">
+        <a href="#" class="nav-link {{ Request::is('foods*') || Request::is('extra*') || Request::is('foodReviews*') || Request::is('nutrition*') ? 'active' : '' }}"> @if($icons)
                 <i class="nav-icon fa fa-fire"></i>@endif
             <p>{{trans('lang.food_plural')}} <i class="right fa fa-angle-left"></i>
             </p>
         </a>
         <ul class="nav nav-treeview">
-            @can('categories.index')
-                <li class="nav-item">
-                    <a class="nav-link {{ Request::is('categories*') ? 'active' : '' }}" href="{!! route('categories.index') !!}">@if($icons)
-                            <i class="nav-icon fa fa-folder"></i>@endif<p>{{trans('lang.category_plural')}}</p></a>
-                </li>
-            @endcan
-
             @can('foods.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('foods*') ? 'active' : '' }}" href="{!! route('foods.index') !!}">@if($icons)
@@ -67,7 +73,11 @@
                         <p>{{trans('lang.food_plural')}}</p></a>
                 </li>
             @endcan
-
+            @can('extraGroups.index')
+                <li class="nav-item">
+                    <a class="nav-link {{ Request::is('extraGroups*') ? 'active' : '' }}" href="{!! route('extraGroups.index') !!}">@if($icons)<i class="nav-icon fa fa-plus-square"></i>@endif<p>{{trans('lang.extra_group_plural')}}</p></a>
+                </li>
+            @endcan
             @can('extras.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('extras*') ? 'active' : '' }}" href="{!! route('extras.index') !!}">@if($icons)
@@ -97,7 +107,7 @@
 @can('orders.index')
     <li class="nav-item has-treeview {{ Request::is('orders*') || Request::is('orderStatuses*') || Request::is('deliveryAddresses*')? 'menu-open' : '' }}">
         <a href="#" class="nav-link {{ Request::is('orders*') || Request::is('orderStatuses*') || Request::is('deliveryAddresses*')? 'active' : '' }}"> @if($icons)
-                <i class="nav-icon fa fa-archive"></i>@endif
+                <i class="nav-icon fa fa-shopping-basket"></i>@endif
             <p>{{trans('lang.order_plural')}} <i class="right fa fa-angle-left"></i>
             </p>
         </a>
@@ -106,7 +116,7 @@
             @can('orders.index')
                 <li class="nav-item">
                     <a class="nav-link {{ Request::is('orders*') ? 'active' : '' }}" href="{!! route('orders.index') !!}">@if($icons)
-                            <i class="nav-icon fa fa-archive"></i>@endif<p>{{trans('lang.order_plural')}}</p></a>
+                            <i class="nav-icon fa fa-shopping-basket"></i>@endif<p>{{trans('lang.order_plural')}}</p></a>
                 </li>
             @endcan
             @can('orderStatuses.index')

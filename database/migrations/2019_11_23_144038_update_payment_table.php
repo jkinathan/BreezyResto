@@ -14,12 +14,12 @@ class UpdatePaymentTable extends Migration
     public function up()
     {
         Schema::table('payments', function ($table) {
-            $table->string('status')->nullable();
-            $table->string('method')->nullable();
+            //$table->string('status')->nullable();
+            //$table->string('method')->nullable();
         });
         Schema::table('orders', function ($table) {
-            $table->integer('payment_id')->nullable()->unsigned();
-            $table->foreign('payment_id')->references('id')->on('payments')->onDelete('set null')->onUpdate('set null');
+            //$table->integer('payment_id')->nullable()->unsigned();
+            //$table->foreign('payment_id')->references('id')->on('payments')->onDelete('set null')->onUpdate('set null');
         });
     }
 

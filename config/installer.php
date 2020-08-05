@@ -1,4 +1,11 @@
 <?php
+/**
+ * File name: installer.php
+ * Last modified: 2020.05.06 at 18:43:03
+ * Author: SmarterVision - https://codecanyon.net/user/smartervision
+ * Copyright (c) 2020
+ *
+ */
 
 use Illuminate\Validation\Rule;
 
@@ -144,5 +151,7 @@ return [
     |
     */
     'updaterEnabled' => 'true',
+
+    'currentVersion' => 'v200',
 
 ];

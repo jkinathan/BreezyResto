@@ -14,7 +14,7 @@ class AddDeviceTokenColumn extends Migration
     public function up()
     {
         Schema::table('users', function ($table) {
-            $table->string('device_token')->nullable();
+            //$table->string('device_token')->nullable();
         });
     }
 
